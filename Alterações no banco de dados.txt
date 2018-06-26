@@ -1,0 +1,8 @@
+Alterado a tabela Estoque:
+	Excluído a coluna nomeProduto
+	Criado a coluna com chave estrangeira idProduto que referencia a tabela produtos, coluna idProduto
+
+Alterado a tabela Vendas:
+	Excluído a coluna nomeProduto
+	Criado a coluna com chave estrangeira idProduto que referencia a tabela produtos, coluna idProduto
+	

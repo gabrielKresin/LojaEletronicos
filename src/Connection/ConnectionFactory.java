@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private final String url = "jdbc:mysql://localhost:3306/loja";
+    private final String url = "jdbc:mysql://localhost:3306/lojaeletronicos";
+    //private final String url = "jdbc:mysql://localhost:3306/loja";
     private final String user = "root";
     private final String password = "";
 

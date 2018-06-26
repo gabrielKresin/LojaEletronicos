@@ -1,6 +1,7 @@
 package Main;
 
 import Connection.ConnectionFactory;
+import Views.MainView;
 
 public class Main {
     
@@ -8,6 +9,8 @@ public class Main {
         
         ConnectionFactory cf = new ConnectionFactory();
         cf.obterConexao();
+        MainView mv = new MainView();
+        mv.setVisible(true);
         
     }
 }
