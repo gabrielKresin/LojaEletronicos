@@ -216,8 +216,9 @@ public class InserirClienteView extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        String sexo = "";
         try {
-            if(txtNome.getText().isEmpty()){
+            if (txtNome.getText().isEmpty()) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Nome inválido!");
                 return;
@@ -226,9 +227,88 @@ public class InserirClienteView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
+
+        try {
+            if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+
+        try {
+            if (txtCpf.getText().length() > 11) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //validar cpf existente?
         
+        try {
+            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+        }
+
+        if (optionMasc.isSelected()) {
+            sexo = "Masculino";
+        } else {
+            sexo = "Feminino";
+        }
+
+        try {
+            if (txtEmail.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "E-mail inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+        }
+
+        try {
+            if (!txtCelular.getText().isEmpty()) {
+                if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length()) < 9) {
+                    invalido = true;
+                    JOptionPane.showMessageDialog(null, "Celular inválido!");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+        }
         
+        try {
+            if(!txtTelefone.getText().isEmpty()){
+                if((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length()) < 8){
+                    invalido = true;
+                    JOptionPane.showMessageDialog(null, "Telefone inválido!");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Telefone inválido!");
+        }
         
+        //Pegar dados da combo
+        //Salvar no banco
+
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

@@ -115,6 +115,14 @@ public class CaixaView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDinheiroActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean invalido = false;
+        
+        //validar se a quantidade é menor que o total
+        
+        //calcular e exibir troco
+        
+        //descontar produtos do estoque
+        
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

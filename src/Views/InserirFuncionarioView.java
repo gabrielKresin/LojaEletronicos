@@ -234,7 +234,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         }
 
-        //Validar se o CPF já existe
+        //Validar se o CPF já existe?
         try {
             if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
                 invalido = true;

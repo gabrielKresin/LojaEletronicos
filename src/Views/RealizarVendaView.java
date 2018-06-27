@@ -5,6 +5,8 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 104869
@@ -45,11 +47,11 @@ public class RealizarVendaView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Valor"
+                "Id", "Nome", "Valor", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,6 +130,25 @@ public class RealizarVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        boolean invalido = false;
+
+        try {
+            if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+        }
+        
+        //Validar se a quantidade é maior que a do estoque
+        
+        //pegar produto do combo
+        
+        //Calcular total
+
         this.dispose();
         CaixaView cv = new CaixaView();
         cv.setVisible(true);

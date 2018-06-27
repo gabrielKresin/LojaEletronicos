@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
-/**
- *
- * @author 104869
- */
+import Daos.FuncionarioDao;
+
 public class VisualizarFuncionarioView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VisualizarFuncionarioView
-     */
     public VisualizarFuncionarioView() {
         initComponents();
+        FuncionarioDao fd = new FuncionarioDao();
+        tabelaFuncionarios.setModel(fd.listarFuncionarios());
     }
 
     /**

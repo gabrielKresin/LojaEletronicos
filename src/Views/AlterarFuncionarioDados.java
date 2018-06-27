@@ -5,6 +5,8 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 104869
@@ -198,6 +200,63 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        boolean invalido = false;
+        String sexo = "";
+        try {
+            if (txtNome.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome inválido!");
+        }
+        
+        try {
+            if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+        
+        try {
+            if (txtCPF.getText().length() > 11) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //Validar se o CPF já existe?
+        try {
+            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+        }
+        
+        if(optionMasc.isSelected()){
+            sexo = "Masculino";
+        }else{
+            sexo = "Feminino";
+        }
+
+        //Fazer o bean receber os valores da combo box
+        //Se for tudo válido salvar no banco
+        
+        
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

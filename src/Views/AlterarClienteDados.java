@@ -5,6 +5,8 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 104869
@@ -38,7 +40,7 @@ public class AlterarClienteDados extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         comboBairro = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        txtNome2 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtIdade = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -72,9 +74,9 @@ public class AlterarClienteDados extends javax.swing.JFrame {
 
         jLabel1.setText("Nome:");
 
-        txtNome2.addActionListener(new java.awt.event.ActionListener() {
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNome2ActionPerformed(evt);
+                txtNomeActionPerformed(evt);
             }
         });
 
@@ -141,7 +143,7 @@ public class AlterarClienteDados extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNome2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +169,7 @@ public class AlterarClienteDados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNome2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -221,11 +223,105 @@ public class AlterarClienteDados extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNome2ActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNome2ActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        boolean invalido = false;
+        String sexo = "";
+        try {
+            if (txtNome.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome inválido!");
+        }
+
+        try {
+            if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+
+        try {
+            if (txtCpf.getText().length() > 11) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //validar cpf existente?
+        
+        try {
+            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Selecione um sexo!");
+        }
+
+        if (optionMasc.isSelected()) {
+            sexo = "Masculino";
+        } else {
+            sexo = "Feminino";
+        }
+
+        try {
+            if (txtEmail.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "E-mail inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+        }
+
+        try {
+            if (!txtCelular.getText().isEmpty()) {
+                if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length()) < 9) {
+                    invalido = true;
+                    JOptionPane.showMessageDialog(null, "Celular inválido!");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+        }
+        
+        try {
+            if(!txtTelefone.getText().isEmpty()){
+                if((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length()) < 8){
+                    invalido = true;
+                    JOptionPane.showMessageDialog(null, "Telefone inválido!");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Telefone inválido!");
+        }
+        
+        //Pegar dados da combo
+        //Salvar no banco
+        
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);
@@ -302,7 +398,7 @@ public class AlterarClienteDados extends javax.swing.JFrame {
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIdade;
-    private javax.swing.JTextField txtNome2;
+    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

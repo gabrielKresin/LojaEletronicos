@@ -5,6 +5,8 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 104869
@@ -33,7 +35,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         comboMarca = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -88,7 +90,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1)
+                            .addComponent(txtNome)
                             .addComponent(txtValor)
                             .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
@@ -106,7 +108,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -132,6 +134,44 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        boolean invalido = false;
+
+        try {
+            if (txtNome.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome inválido!");
+        }
+
+        try {
+            if (Double.parseDouble(txtValor.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Valor inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Valor inválido!");
+        }
+
+        try {
+            if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+        }
+
+        //Passar dados pro bean
+        //Salvar no banco
+        
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);
@@ -193,7 +233,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
