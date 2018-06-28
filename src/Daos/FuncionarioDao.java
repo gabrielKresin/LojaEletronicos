@@ -74,4 +74,36 @@ public class FuncionarioDao {
 
     }
 
+    public DefaultTableModel listarParaAlterar(){
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("Id");
+        modelo.addColumn("Nome");
+        
+        String sql = "SELECT idFuncionario, nomeFuncionario FROM funcionarios";
+        
+        try {
+            Statement stmt = conexao.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                modelo.addRow(
+                        new Object[]{rs.getInt("idFuncionario"), rs.getString("nomeFuncionario")}
+                );
+            }
+            
+            stmt.close();
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro ao carregar funcionários!");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
 }

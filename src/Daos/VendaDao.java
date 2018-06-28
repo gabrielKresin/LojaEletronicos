@@ -54,4 +54,38 @@ public class VendaDao {
         
     }
     
+    public DefaultTableModel listarParaComprar(){
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("Id");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Valor");
+        modelo.addColumn("Quantidade");
+        
+        String sql = "SELECT produtos.idProduto, produtos.nomeProduto, produtos.valor, estoque.quantidadeEstoque FROM produtos, estoque WHERE produtos.idEstoque = estoque.idEstoque";
+        
+        try {
+            Statement stmt = conexao.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                modelo.addRow(
+                        new Object[]{rs.getInt("idProduto"), rs.getString("nomeProduto"), rs.getDouble("valor"), rs.getInt("quantidadeEstoque")}
+                );
+            }
+            
+            stmt.close();
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro ao carregar produtos!");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
 }

@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import javax.swing.JOptionPane;
+import Daos.VendaDao;
 
-/**
- *
- * @author 104869
- */
 public class RealizarVendaView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RealizarVendaView
-     */
     public RealizarVendaView() {
         initComponents();
+        VendaDao vd = new VendaDao();
+        tabelaPrecos.setModel(vd.listarParaComprar());
     }
 
     /**

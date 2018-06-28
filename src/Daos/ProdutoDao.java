@@ -65,4 +65,36 @@ public class ProdutoDao {
         
     }
     
+    public DefaultTableModel listarParaAlterar(){
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo.addColumn("Id");
+        modelo.addColumn("Nome");
+        
+        String sql = "SELECT idProduto, nomeProduto FROM produtos";
+        
+        try {
+            Statement stmt = conexao.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                modelo.addRow(
+                        new Object[]{rs.getInt("idProduto"), rs.getString("nomeProduto")}
+                );
+            }
+            
+            stmt.close();
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro ao carregar produtos!");
+            
+        }
+        
+        return modelo;
+        
+    }
+    
 }
