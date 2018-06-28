@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import javax.swing.JOptionPane;
+import Beans.FuncionarioBean;
+import Daos.FuncionarioDao;
 
-/**
- *
- * @author 104869
- */
 public class InserirFuncionarioView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InserirFuncionarioView
-     */
     public InserirFuncionarioView() {
         initComponents();
     }
@@ -42,15 +32,19 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         comboBairro = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboRua = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        comboComplemento = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        comboCargos = new javax.swing.JComboBox<>();
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtNumero = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Funcionário");
@@ -72,13 +66,21 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
 
         jLabel5.setText("Bairro:");
 
+        comboBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Garcia", "Fortaleza", "Centro", "Vila Nova", "Água Verde", "Velha", "Itoupava Seca", "Itoupava Norte", "Nova Esperança", "Vila Formosa", "Vorstadt", "Progresso", "Itoupavazinha", "Salto do Norte", "Paço Manso", "Testo Salto", "Escola Agrícola", "Victor Konder", "Ponta Aguda", "Tribess" }));
+
         jLabel6.setText("Rua:");
+
+        comboRua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua Abacateiro", "Rua Abílio Michelluzzi", "Rua Achiles Jacobsen", "Rua Acácio Pereiro", "Rua Açores", "Rua Acre", "Rua Acrisio Moreira da Costa", "Rua 30 de Outubro", "Rua 6 de agosto", "Aveniada Rio do Sul", "Rua 30 de agosto", "Rua Setenta e Oito e Meio", "Rua Romarinho", "Rua Obrigado\t", "Rua Urupema", "Rua Ipatinga", "Rua Java", "Rua Adobe Strike 1.6", "Rua Jorge do Sul", "Rua Tobias Barreto", "Rua Julio Kleine", "Rua 90 de Agosto", "Rua Paraiba", "Rua Joinville", "Rua Curitiba", "Rua 15 de agosto", "Rua 43 de setembro", "Avenida Garça Velha", "Rua Ahosto", "Rua Irineu", "Rua Roberto Carlos", "Rua Pelé", "Rua Sem saída", "Rua 30 de janeiro", "Rua Barão", "Rua Teodoro", "Rua Pikachu", "Rua Com Saída", "Rua Galegão", "Rua Pichau", "Rua 30 de dezembro", "Rua São Paulo" }));
 
         jLabel7.setText("Número:");
 
         jLabel8.setText("Complemento:");
 
+        comboComplemento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casa", "Apartamento", "Nenhum" }));
+
         jLabel9.setText("Cargo:");
+
+        comboCargos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estágiario", "Consultor", "Vendedor", "Gerente", "Analista", "Analista sênior", "Supervisor", "Analista de marketing júnior", "Analista de marketing pleno", "Analista de marketing sênior", "Consultor sênior", "Gerente de divisão", "Gerente sênior", "Assistente Administrativo", "Técnico", "Gerente de Contas", "Consultor de Negócios", "Recepcionsita", "Secretária", "Trainee" }));
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +96,10 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("E-mail:");
+
+        jLabel11.setText("Celular:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,44 +108,48 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(optionMasc))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(optionFem))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addGap(8, 8, 8)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnConfirmar)
+                        .addComponent(jLabel9)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(33, 33, 33)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)
-                        .addGap(75, 75, 75))))
+                                .addComponent(btnConfirmar)
+                                .addGap(70, 70, 70)
+                                .addComponent(btnCancelar))
+                            .addComponent(comboCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(optionMasc)
+                                .addGap(18, 18, 18)
+                                .addComponent(optionFem))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboBairro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,27 +171,35 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(optionMasc)
                     .addComponent(optionFem))
-                .addGap(25, 25, 25)
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                    .addComponent(comboCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar))
@@ -199,6 +217,8 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        FuncionarioBean fb = new FuncionarioBean();
+        FuncionarioDao fd = new FuncionarioDao();
         boolean invalido = false;
         String sexo = "";
         try {
@@ -211,7 +231,29 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
-        
+
+        try {
+            if (txtIdade.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+
+        try {
+            if (txtCPF.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
         try {
             if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
                 invalido = true;
@@ -222,9 +264,9 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
-        
-        try {
-            if (txtCPF.getText().length() > 11) {
+
+        /*try {
+            if ((txtCPF.getText().length() > 11) || (txtCPF.getText().length() < 11)) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "CPF inválido!");
                 return;
@@ -232,11 +274,23 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         } catch (Exception e) {
             invalido = true;
             JOptionPane.showMessageDialog(null, "CPF inválido!");
-        }
+        }*/
 
-        //Validar se o CPF já existe?
         try {
-            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+            long cpf = Long.parseLong(txtCPF.getText());
+            if (fd.verificaCpf(cpf) == true) {
+                invalido = true;
+                System.out.println(invalido);
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!"+ ex.getMessage());
+            System.out.println(invalido);
+        }
+        try {
+            if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Selecione um sexo!");
                 return;
@@ -245,19 +299,51 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Selecione um sexo!");
         }
-        
-        if(optionMasc.isSelected()){
+
+        if (optionMasc.isSelected()) {
             sexo = "Masculino";
-        }else{
+        } else {
             sexo = "Feminino";
+        }
+
+        try {
+            if (txtNumero.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
+        System.out.println(invalido);
+        try {
+            if (invalido == false) {
+                fb.setNomeFuncionario(txtNome.getText());
+                fb.setIdFuncionario(Integer.parseInt(txtIdade.getText()));
+                fb.setCpfFuncionario(Long.parseLong(txtCPF.getText()));
+                fb.setSexoFuncionario(sexo);
+                fb.setBairroFuncionario(String.valueOf(comboBairro.getSelectedItem()));
+                fb.setRuaFuncionario(String.valueOf(comboRua.getSelectedItem()));
+                fb.setNumeroCasaFuncionario(Integer.parseInt(txtNumero.getText()));
+                fb.setComplementoFuncionario(String.valueOf(comboComplemento.getSelectedItem()));
+                fb.setCargoFuncionario(String.valueOf(comboCargos.getSelectedItem()));
+                fb.setEmailFuncionario(txtEmail.getText());
+                fb.setNumeroContatoFuncionario(Long.parseLong(txtCelular.getText()));
+                fd.cadastraFuncionario(fb);
+                System.out.println("cadastrado?");
+                this.dispose();
+                MainView mv = new MainView();
+                mv.setVisible(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar dados!");
         }
 
         //Fazer o bean receber os valores da combo box
         //Se for tudo válido salvar no banco
-        
-        this.dispose();
-        MainView mv = new MainView();
-        mv.setVisible(true);
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -300,11 +386,12 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboBairro;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> comboCargos;
+    private javax.swing.JComboBox<String> comboComplemento;
+    private javax.swing.JComboBox<String> comboRua;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -316,7 +403,10 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JRadioButton optionFem;
     private javax.swing.JRadioButton optionMasc;
     private javax.swing.JTextField txtCPF;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }

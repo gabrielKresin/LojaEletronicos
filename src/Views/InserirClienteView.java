@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import javax.swing.JOptionPane;
+import Daos.ClienteDao;
+import Beans.ClienteBean;
 
-/**
- *
- * @author 104869
- */
 public class InserirClienteView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InserirClienteView
-     */
     public InserirClienteView() {
         initComponents();
     }
@@ -88,11 +78,17 @@ public class InserirClienteView extends javax.swing.JFrame {
 
         jLabel8.setText("Bairro:");
 
+        comboBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Garcia", "Fortaleza", "Centro", "Vila Nova", "Água Verde", "Velha", "Itoupava Seca", "Itoupava Norte", "Nova Esperança", "Vila Formosa", "Vorstadt", "Progresso", "Itoupavazinha", "Salto do Norte", "Paço Manso", "Testo Salto", "Escola Agrícola", "Victor Konder", "Ponta Aguda", "Tribess" }));
+
         jLabel9.setText("Rua:");
+
+        comboRua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua Abacateiro", "Rua Abílio Michelluzzi", "Rua Achiles Jacobsen", "Rua Acácio Pereiro", "Rua Açores", "Rua Acre", "Rua Acrisio Moreira da Costa", "Rua 30 de Outubro", "Rua 6 de agosto", "Aveniada Rio do Sul", "Rua 30 de agosto", "Rua Setenta e Oito e Meio", "Rua Romarinho", "Rua Obrigado\t", "Rua Urupema", "Rua Ipatinga", "Rua Java", "Rua Adobe Strike 1.6", "Rua Jorge do Sul", "Rua Tobias Barreto", "Rua Julio Kleine", "Rua 90 de Agosto", "Rua Paraiba", "Rua Joinville", "Rua Curitiba", "Rua 15 de agosto", "Rua 43 de setembro", "Avenida Garça Velha", "Rua Ahosto", "Rua Irineu", "Rua Roberto Carlos", "Rua Pelé", "Rua Sem saída", "Rua 30 de janeiro", "Rua Barão", "Rua Teodoro", "Rua Pikachu", "Rua Com Saída", "Rua Galegão", "Rua Pichau", "Rua 30 de dezembro", "Rua São Paulo" }));
 
         jLabel10.setText("Número:");
 
         jLabel11.setText("Complemento:");
+
+        comboComplemento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casa", "Apartamento", "Nenhum" }));
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
