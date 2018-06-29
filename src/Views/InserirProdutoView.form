@@ -103,7 +103,28 @@
     <Component class="javax.swing.JComboBox" name="comboMarca">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="20">
+            <StringItem index="0" value="Alcatel"/>
+            <StringItem index="1" value="Apple"/>
+            <StringItem index="2" value="LG"/>
+            <StringItem index="3" value="Asus"/>
+            <StringItem index="4" value="Samsung"/>
+            <StringItem index="5" value="Nokia"/>
+            <StringItem index="6" value="Motorola"/>
+            <StringItem index="7" value="Xiaomi"/>
+            <StringItem index="8" value="Lenovo"/>
+            <StringItem index="9" value="Multilaser"/>
+            <StringItem index="10" value="Sony"/>
+            <StringItem index="11" value="HTC"/>
+            <StringItem index="12" value="Huawei"/>
+            <StringItem index="13" value="BlackBerry"/>
+            <StringItem index="14" value="Toshiba"/>
+            <StringItem index="15" value="wiko"/>
+            <StringItem index="16" value="Positivo"/>
+            <StringItem index="17" value="Venko"/>
+            <StringItem index="18" value="Philipps"/>
+            <StringItem index="19" value="T-mobile"/>
+          </StringArray>
         </Property>
       </Properties>
       <AuxValues>

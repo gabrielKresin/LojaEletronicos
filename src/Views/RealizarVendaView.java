@@ -1,5 +1,6 @@
 package Views;
 
+import Beans.VendaBean;
 import javax.swing.JOptionPane;
 import Daos.VendaDao;
 
@@ -55,6 +56,8 @@ public class RealizarVendaView extends javax.swing.JFrame {
         }
 
         jLabel1.setText("Selecione um produto:");
+
+        comboProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "iPhone 5S" }));
 
         jLabel2.setText("Quantidade:");
 
@@ -122,6 +125,7 @@ public class RealizarVendaView extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        VendaDao vd = new VendaDao();
 
         try {
             if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
@@ -133,16 +137,30 @@ public class RealizarVendaView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Quantidade inválida!");
         }
-        
-        //Validar se a quantidade é maior que a do estoque
-        
-        //pegar produto do combo
-        
-        //Calcular total
 
-        this.dispose();
-        CaixaView cv = new CaixaView();
-        cv.setVisible(true);
+        //Validar se a quantidade é maior que a do estoque
+        try {
+            if (vd.verificaEstoque(Integer.parseInt(txtQuantidade.getText()), String.valueOf(comboProdutos.getSelectedItem())) == false) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+        }
+
+        if (invalido == false) {
+            VendaBean vb = new VendaBean();
+            vb.setQuantidadeVenda(Integer.parseInt(txtQuantidade.getText()));
+            vb.setProduto(String.valueOf(comboProdutos.getSelectedItem()));
+            vb.setTotal(Integer.parseInt(txtQuantidade.getText()) * vd.carregaPreco(String.valueOf(comboProdutos.getSelectedItem())));
+            this.dispose();
+            CaixaView cv = new CaixaView();
+            cv.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

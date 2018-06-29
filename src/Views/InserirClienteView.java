@@ -212,6 +212,8 @@ public class InserirClienteView extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        ClienteBean cb = new ClienteBean();
+        ClienteDao cd = new ClienteDao();
         String sexo = "";
         try {
             if (txtNome.getText().isEmpty()) {
@@ -246,10 +248,10 @@ public class InserirClienteView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         }
 
-        //validar cpf existente?
+        //validar cpf existente
         
         try {
-            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+            if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Selecione um sexo!");
                 return;
@@ -305,6 +307,21 @@ public class InserirClienteView extends javax.swing.JFrame {
         //Pegar dados da combo
         //Salvar no banco
 
+        if(invalido == false){
+            cb.setNomeCliente(txtNome.getText());
+            cb.setIdadeCliente(Integer.parseInt(txtIdade.getText()));
+            cb.setCpfCliente(Long.parseLong(txtCpf.getText()));
+            cb.setSexoCliente(sexo);
+            cb.setEmailCliente(txtEmail.getText());
+            cb.setCelularCliente(Long.parseLong(txtCelular.getText()));
+            cb.setTelefoneCliente(Long.parseLong(txtTelefone.getText()));
+            cb.setBairroCliente(String.valueOf(comboBairro.getSelectedItem()));
+            cb.setRuaCliente(String.valueOf(comboRua.getSelectedItem()));
+            cb.setNumeroCasaCliente(Integer.parseInt(txtNumero.getText()));
+            cb.setComplementoCliente(String.valueOf(comboComplemento.getSelectedItem()));
+            cd.cadastraCliente(cb);
+        }
+        
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

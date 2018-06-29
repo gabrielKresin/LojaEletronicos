@@ -65,13 +65,13 @@ public class FuncionarioDao {
         //Pegar o id do endereço cadastrado
         try {
 
-            sql = "SELECT idInformacoesFuncionario FROM funcionarios ORDER BY idInformacoesFuncionario DESC LIMIT 1";
+            sql = "SELECT idEnderecoF FROM enderecoFuncionario ORDER BY idEnderecoF DESC LIMIT 1";
 
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                idCadastro = rs.getInt("idInformacoesFuncionario");
+                idCadastro = rs.getInt("idEnderecoF");
             }
             
             stmt.close();
@@ -115,7 +115,6 @@ public class FuncionarioDao {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar informações!" + e.getMessage());
         }
 
-        //MUDAR A VARIAVEL DE CPF NO BD PARA LONG
         //Pegar id do cargo a ser cadastrado
         try {
             sql = "SELECT idCargo FROM cargos WHERE nomeCargo = ? ";
@@ -165,7 +164,7 @@ public class FuncionarioDao {
 
             while (rs.next()) {
 
-                if ((rs.getInt("CPFFuncionario") == cpf) || (rs.getInt("CPFCliente") == cpf)) {
+                if ((rs.getLong("CPFFuncionario") == cpf) || (rs.getLong("CPFCliente") == cpf)) {
 
                     existente = true;
                     break;
@@ -214,7 +213,7 @@ public class FuncionarioDao {
 
             while (rs.next()) {
                 modelo.addRow(
-                        new Object[]{rs.getInt("idFuncionario"), rs.getString("nomeFuncionario"), rs.getInt("CPFFuncionario"), rs.getInt("idadeFuncionario"), rs.getString("SexoFuncionario"), rs.getString("emailFuncionario"), rs.getInt("numeroContato"), rs.getString("nomeCargo"), rs.getDouble("salario"), rs.getString("nomeBairro"), rs.getString("ruaFuncionario"), rs.getInt("numeroCasaFuncionario"), rs.getString("complemento")}
+                        new Object[]{rs.getInt("idFuncionario"), rs.getString("nomeFuncionario"), rs.getLong("CPFFuncionario"), rs.getInt("idadeFuncionario"), rs.getString("SexoFuncionario"), rs.getString("emailFuncionario"), rs.getInt("numeroContato"), rs.getString("nomeCargo"), rs.getDouble("salario"), rs.getString("nomeBairro"), rs.getString("ruaFuncionario"), rs.getInt("numeroCasaFuncionario"), rs.getString("complemento")}
                 );
             }
 
@@ -222,7 +221,7 @@ public class FuncionarioDao {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Erro ao carregar funcionários!");
+            JOptionPane.showMessageDialog(null, "Erro ao carregar funcionários!" + e.getMessage());
 
         }
 

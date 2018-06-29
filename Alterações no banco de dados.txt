@@ -6,4 +6,8 @@ Alterado a tabela Vendas:
 	Criado a coluna com chave estrangeira idProduto que referencia a tabela produtos, coluna idProduto
 
 Alterado a ordem dos inserts.
+
+Alterado o tipo de variavel int para bigint na tabela informacoesfuncionario, coluna cpffuncionario
+
+Alterado o tipo de variavel int para bigint na tabela informacoescliente, coluna cpfcliente
 	

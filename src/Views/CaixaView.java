@@ -1,21 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
-/**
- *
- * @author 104869
- */
+import Daos.VendaDao;
+import Beans.VendaBean;
+import javax.swing.JOptionPane;
+
 public class CaixaView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CaixaView
-     */
+    VendaBean vb = new VendaBean();
+
     public CaixaView() {
+        
         initComponents();
+        System.out.println(vb.getTotal());
+
     }
 
     /**
@@ -38,7 +35,7 @@ public class CaixaView extends javax.swing.JFrame {
         setTitle("Caixa");
         setResizable(false);
 
-        jLabel1.setText("Total:");
+        jLabel1.setText("Total: " + vb.getTotal());
 
         jLabel2.setText("Dinheiro:");
 
@@ -116,16 +113,32 @@ public class CaixaView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean invalido = false;
-        
+
         //validar se a quantidade é menor que o total
-        
+        try {
+            if (vb.getTotal() < Double.parseDouble(txtDinheiro.getText())) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Quantidade de dinheiro inválida!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Quantidade de dinheiro inválida!");
+        }
+
         //calcular e exibir troco
-        
         //descontar produtos do estoque
-        
-        this.dispose();
-        MainView mv = new MainView();
-        mv.setVisible(true);
+        if (invalido == false) {
+            VendaDao vd = new VendaDao();
+            JOptionPane.showMessageDialog(null, "Troco: " + (Double.parseDouble(txtDinheiro.getText()) - vb.getTotal()));
+            vd.atualizaEstoque(vb.getQuantidadeVenda(), vb.getProduto());
+            vd.cadastraVenda(vb);
+
+            this.dispose();
+            MainView mv = new MainView();
+            mv.setVisible(true);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

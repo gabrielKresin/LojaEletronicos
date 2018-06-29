@@ -265,7 +265,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
 
-        /*try {
+        try {
             if ((txtCPF.getText().length() > 11) || (txtCPF.getText().length() < 11)) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "CPF inválido!");
@@ -274,7 +274,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         } catch (Exception e) {
             invalido = true;
             JOptionPane.showMessageDialog(null, "CPF inválido!");
-        }*/
+        }
 
         try {
             long cpf = Long.parseLong(txtCPF.getText());
@@ -331,6 +331,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
                 fb.setCargoFuncionario(String.valueOf(comboCargos.getSelectedItem()));
                 fb.setEmailFuncionario(txtEmail.getText());
                 fb.setNumeroContatoFuncionario(Long.parseLong(txtCelular.getText()));
+                fb.setIdadeFuncionario(Integer.parseInt(txtIdade.getText()));
                 fd.cadastraFuncionario(fb);
                 System.out.println("cadastrado?");
                 this.dispose();
