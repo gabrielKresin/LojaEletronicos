@@ -1,5 +1,7 @@
 package Beans;
 
+import java.util.ArrayList;
+
 public class ProdutoBean {
     
     private int idProduto;

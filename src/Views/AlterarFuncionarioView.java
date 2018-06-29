@@ -1,6 +1,7 @@
 package Views;
 
 import Daos.FuncionarioDao;
+import Beans.FuncionarioBean;
 
 public class AlterarFuncionarioView extends javax.swing.JFrame {
 
@@ -22,7 +23,7 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaFuncionarios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        txtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar Funcionário");
@@ -56,10 +57,10 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
 
         jLabel1.setText("Clique em um funcionário para alterá-lo:");
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtCancelar.setText("Cancelar");
+        txtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                txtCancelarActionPerformed(evt);
             }
         });
 
@@ -77,7 +78,7 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
-                        .addComponent(jButton1)))
+                        .addComponent(txtCancelar)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -88,7 +89,7 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(txtCancelar)
                 .addContainerGap())
         );
 
@@ -96,13 +97,19 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void txtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCancelarActionPerformed
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_txtCancelarActionPerformed
 
     private void tabelaFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionariosMouseClicked
+        FuncionarioBean fb = new FuncionarioBean();
+        
+        int linhaSelecionada = tabelaFuncionarios.getSelectedRow();
+        int id = (int) tabelaFuncionarios.getValueAt(linhaSelecionada, 0);
+        fb.setIdFuncionarioAlterado(id);
+        
         this.dispose();
         AlterarFuncionarioDados afd = new AlterarFuncionarioDados();
         afd.setVisible(true);
@@ -144,9 +151,9 @@ public class AlterarFuncionarioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaFuncionarios;
+    private javax.swing.JButton txtCancelar;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,13 +3,22 @@ package Views;
 import Beans.VendaBean;
 import javax.swing.JOptionPane;
 import Daos.VendaDao;
+import Daos.ProdutoDao;
 
 public class RealizarVendaView extends javax.swing.JFrame {
 
     public RealizarVendaView() {
         initComponents();
         VendaDao vd = new VendaDao();
+        ProdutoDao pd = new ProdutoDao();
+        
         tabelaPrecos.setModel(vd.listarParaComprar());
+        
+        for (int i = 0; i < pd.carregaProdutos().size(); i++) {
+            System.out.println(pd.carregaProdutos().get(i));
+            
+            comboProdutos.addItem(String.valueOf(pd.carregaProdutos().get(i)));
+        }
     }
 
     /**
@@ -56,8 +65,6 @@ public class RealizarVendaView extends javax.swing.JFrame {
         }
 
         jLabel1.setText("Selecione um produto:");
-
-        comboProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "iPhone 5S" }));
 
         jLabel2.setText("Quantidade:");
 

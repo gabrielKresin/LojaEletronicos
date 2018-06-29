@@ -1,21 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
-/**
- *
- * @author 104869
- */
+import Daos.FuncionarioDao;
+
 public class ExcluirFuncionarioView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ExcluirFuncionarioView
-     */
     public ExcluirFuncionarioView() {
         initComponents();
+        FuncionarioDao fd = new FuncionarioDao();
+        
+        for (int i = 0; i < fd.carregaFuncionario().size(); i++) {
+            comboFuncionario.addItem(String.valueOf(fd.carregaFuncionario().get(i)));
+        }
     }
 
     /**
@@ -88,6 +83,8 @@ public class ExcluirFuncionarioView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FuncionarioDao fd = new FuncionarioDao();
+        fd.excluirFuncionario(String.valueOf(comboFuncionario.getSelectedItem()));
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

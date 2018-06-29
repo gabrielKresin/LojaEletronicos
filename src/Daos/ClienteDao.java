@@ -6,6 +6,7 @@ import Beans.ClienteBean;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,29 @@ public class ClienteDao {
         
         this.conexao = new ConnectionFactory().obterConexao();
         
+    }
+    
+    public ArrayList carregaClientes(){
+        ArrayList<String> clientes = new ArrayList<>();
+        
+        String sql = "SELECT nomeCliente FROM clientes ";
+        
+        try {
+            
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                
+                clientes.add(rs.getString("nomeCliente"));
+               
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar clientes!");
+        }
+        
+        return clientes;
     }
     
     public void cadastraCliente(ClienteBean cb){
@@ -180,7 +204,88 @@ public class ClienteDao {
         
     }
     
-    public void excluirCliente(int idCliente){
+    public void excluirCliente(String cliente){
+        
+        int idCliente = 0;
+        
+        String sql = "SELECT idCliente FROM clientes WHERE nomeCliente = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, cliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idCliente = rs.getInt("idCliente");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar clientes!" + e.getMessage());
+
+        }
+        
+        //excluir cliente da tabela clientes
+        sql = "DELETE FROM clientes WHERE idCliente = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idCliente);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente!" + e.getMessage());
+        }
+        
+        //excluir endereco do cliente da tabela enderecocliente
+        sql = "DELETE FROM enderecocliente WHERE idEnderecoC = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idCliente);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir enderecocliente!" + e.getMessage());
+        }
+        
+        //excluir informacoes do cliente da tabela informacoescliente
+        sql = "DELETE FROM informacoescliente WHERE idInformacoes = ?";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idCliente);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir informacoescliente!" + e.getMessage());
+        }
+        
+        //excluir contato do cliente da tabela contatocliente
+        sql = "DELETE FROM contatocliente WHERE idContato = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idCliente);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir contatocliente!" + e.getMessage());
+        }
+        
         
     }
     

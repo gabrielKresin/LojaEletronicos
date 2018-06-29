@@ -10,4 +10,11 @@ Alterado a ordem dos inserts.
 Alterado o tipo de variavel int para bigint na tabela informacoesfuncionario, coluna cpffuncionario
 
 Alterado o tipo de variavel int para bigint na tabela informacoescliente, coluna cpfcliente
+
+Adicionado ON DELETE CASCADE nas chaves estrageiras da tabela funcionarios 
+
+Adicionado ON DELETE CASCADE nas chaves estrageiras da tabela clientes
 	
+Adicionado ON DELETE CASCADE nas chaves estrageiras da tabela produtos
+
+Adicionado ON DELETE CASCADE nas chaves estrageiras da tabela vendas

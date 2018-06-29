@@ -15,6 +15,15 @@ public class FuncionarioBean {
     private String ruaFuncionario;
     private int numeroCasaFuncionario;
     private String complementoFuncionario;
+    static private int idFuncionarioAlterado;
+
+    public static int getIdFuncionarioAlterado() {
+        return idFuncionarioAlterado;
+    }
+
+    public static void setIdFuncionarioAlterado(int idFuncionarioAlterado) {
+        FuncionarioBean.idFuncionarioAlterado = idFuncionarioAlterado;
+    }
 
     public int getIdFuncionario() {
         return idFuncionario;

@@ -6,6 +6,7 @@ import Beans.ProdutoBean;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,6 +17,31 @@ public class ProdutoDao {
     public ProdutoDao(){
         
         this.conexao = new ConnectionFactory().obterConexao();
+        
+    }
+    
+    public ArrayList carregaProdutos(){
+        
+        ArrayList<String> produtos = new ArrayList<>();
+        
+        String sql = "SELECT nomeProduto FROM produtos ";
+        
+        try {
+            
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                
+                produtos.add(rs.getString("nomeProduto"));
+               
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar produtos!");
+        }
+        
+        return produtos;
         
     }
     
@@ -134,8 +160,73 @@ public class ProdutoDao {
         
     }
     
-    public void excluirProduto(int idProduto){
+    public void excluirProduto(String produto){
         
+        int idProduto = 0;
+        
+        String sql = "SELECT idProduto FROM produtos WHERE nomeProduto = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, produto);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idProduto = rs.getInt("idProduto");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar produtos!" + e.getMessage());
+
+        }
+        
+        //excluir venda da tabela vendas
+        sql = "DELETE FROM vendas WHERE idProduto = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idProduto);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir produto!" + e.getMessage());
+        }
+        
+        //excluir produto da tabela produtos
+        sql = "DELETE FROM produtos WHERE idProduto = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idProduto);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir produto!" + e.getMessage());
+        }
+        
+        //excluir estoque do produto da tabela estoque
+        sql = "DELETE FROM estoque WHERE idEstoque = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idProduto);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir estoque!" + e.getMessage());
+        }
+               
     }
     
     public DefaultTableModel listarParaAlterar(){

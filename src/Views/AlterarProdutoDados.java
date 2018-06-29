@@ -65,6 +65,8 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
 
         jLabel2.setText("Marca:");
 
+        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alcatel", "Apple", "LG", "Asus", "Samsung", "Nokia", "Motorola", "Xiaomi", "Lenovo", "Multilaser", "Sony", "HTC", "Huawei", "BlackBerry", "Toshiba", "wiko", "Positivo", "Venko", "Philipps", "T-mobile" }));
+
         jLabel3.setText("Valor:");
 
         jButton1.setText("Voltar");

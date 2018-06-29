@@ -43,16 +43,20 @@ public class VendaDao {
         }
         
         try {
-            sql = "INSERT INTO vendas VALUES (null, idProduto, valorVenda, quantidadeVenda)";
+            sql = "INSERT INTO vendas VALUES (null, ?, ?, ?)";
             
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, idProduto);
             pstmt.setDouble(2, vb.getTotal());
             pstmt.setInt(3, vb.getQuantidadeVenda());
             
+            pstmt.execute();
+            pstmt.close();
+            
         } catch (Exception e) {
             
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar venda! "+ e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar venda! ");
+            System.out.println( e.getMessage());
             
         }
         
@@ -145,7 +149,9 @@ public class VendaDao {
             pstmt2.setInt(1, idProduto);
             ResultSet rs = pstmt2.executeQuery();
             
-            novoEstoque = (rs.getInt("quantidadeEstoque") - quantidade);
+            while(rs.next()){
+                novoEstoque = (rs.getInt("quantidadeEstoque") - quantidade);
+            }
             
             pstmt2.execute();
             pstmt2.close();

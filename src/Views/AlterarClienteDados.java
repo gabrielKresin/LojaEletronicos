@@ -72,6 +72,8 @@ public class AlterarClienteDados extends javax.swing.JFrame {
 
         jLabel8.setText("Bairro:");
 
+        comboBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Garcia", "Fortaleza", "Centro", "Vila Nova", "Água Verde", "Velha", "Itoupava Seca", "Itoupava Norte", "Nova Esperança", "Vila Formosa", "Vorstadt", "Progresso", "Itoupavazinha", "Salto do Norte", "Paço Manso", "Testo Salto", "Escola Agrícola", "Victor Konder", "Ponta Aguda", "Tribess" }));
+
         jLabel1.setText("Nome:");
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
@@ -88,9 +90,13 @@ public class AlterarClienteDados extends javax.swing.JFrame {
 
         jLabel9.setText("Rua:");
 
+        comboRua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua Abacateiro", "Rua Abílio Michelluzzi", "Rua Achiles Jacobsen", "Rua Acácio Pereiro", "Rua Açores", "Rua Acre", "Rua Acrisio Moreira da Costa", "Rua 30 de Outubro", "Rua 6 de agosto", "Aveniada Rio do Sul", "Rua 30 de agosto", "Rua Setenta e Oito e Meio", "Rua Romarinho", "Rua Obrigado\t", "Rua Urupema", "Rua Ipatinga", "Rua Java", "Rua Adobe Strike 1.6", "Rua Jorge do Sul", "Rua Tobias Barreto", "Rua Julio Kleine", "Rua 90 de Agosto", "Rua Paraiba", "Rua Joinville", "Rua Curitiba", "Rua 15 de agosto", "Rua 43 de setembro", "Avenida Garça Velha", "Rua Ahosto", "Rua Irineu", "Rua Roberto Carlos", "Rua Pelé", "Rua Sem saída", "Rua 30 de janeiro", "Rua Barão", "Rua Teodoro", "Rua Pikachu", "Rua Com Saída", "Rua Galegão", "Rua Pichau", "Rua 30 de dezembro", "Rua São Paulo" }));
+
         jLabel10.setText("Número:");
 
         jLabel11.setText("Complemento:");
+
+        comboComplemento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casa", "Apartamento", "Nenhum" }));
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,46 +128,47 @@ public class AlterarClienteDados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(optionMasc)
-                                .addGap(29, 29, 29)
-                                .addComponent(optionFem))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(optionMasc)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(optionFem))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(156, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConfirmar)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addGap(18, 18, 18)
-                            .addComponent(comboComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(156, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(58, 58, 58))
+                        .addGap(71, 71, 71)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)
+                        .addGap(58, 58, 58))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

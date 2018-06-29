@@ -3,9 +3,9 @@ package Beans;
 public class VendaBean {
     
     private int idVenda;
-    private int quantidadeVenda;
-    private double total;
-    private String produto;
+    static private int quantidadeVenda;
+    static private double total;
+    static private String produto;
 
     public String getProduto() {
         return produto;

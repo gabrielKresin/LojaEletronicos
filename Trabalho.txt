@@ -31,8 +31,8 @@ CREATE TABLE produtos (
 	valor DECIMAL(10,2) NOT NULL,
     	idEstoque INT,
 	PRIMARY KEY (idProduto),
-    	FOREIGN KEY(idMarca) REFERENCES marcas(idMarca),
-    	FOREIGN KEY(idEstoque) REFERENCES estoque(idEstoque)
+    	FOREIGN KEY(idMarca) REFERENCES marcas(idMarca) ON DELETE CASCADE,
+    	FOREIGN KEY(idEstoque) REFERENCES estoque(idEstoque) ON DELETE CASCADE
 );
 
 
@@ -50,7 +50,7 @@ CREATE TABLE enderecoFuncionario (
 	numeroCasaFuncionario INT NOT NULL,
 	complemento varchar(40) NOT NULL,
 	PRIMARY KEY (idEnderecoF),
-    FOREIGN KEY(idBairros) REFERENCES bairros(idBairros)
+    FOREIGN KEY(idBairros) REFERENCES bairros(idBairros) 
 );
 
 
@@ -88,10 +88,10 @@ CREATE TABLE funcionarios (
 	idInformacoesFuncionario INT NOT NULL,
 	idCargo INT NOT NULL,
 	PRIMARY KEY (idFuncionario),
-    	FOREIGN KEY(idContatoF) REFERENCES contatofuncionario(idContatoF),
-    	FOREIGN KEY(idEnderecoF) REFERENCES enderecofuncionario(idEnderecoF),
-    	FOREIGN KEY(idInformacoesFuncionario) REFERENCES informacoesfuncionario(idInformacoesFuncionario),
-    	FOREIGN KEY(idCargo) REFERENCES cargos(idCargo)
+    	FOREIGN KEY(idContatoF) REFERENCES contatofuncionario(idContatoF) ON DELETE CASCADE, 
+    	FOREIGN KEY(idEnderecoF) REFERENCES enderecofuncionario(idEnderecoF) ON DELETE CASCADE,
+    	FOREIGN KEY(idInformacoesFuncionario) REFERENCES informacoesfuncionario(idInformacoesFuncionario) ON DELETE CASCADE,
+    	FOREIGN KEY(idCargo) REFERENCES cargos(idCargo) ON DELETE CASCADE
 );
 
 
@@ -133,12 +133,12 @@ CREATE TABLE Clientes (
 	idInformacoes INT NOT NULL,
 	nomeCliente varchar(50) NOT NULL,
 	PRIMARY KEY (idCliente),
-    FOREIGN KEY(idEnderecoC) REFERENCES enderecocliente(idEnderecoC),
-	FOREIGN KEY(idContato) REFERENCES contatocliente(idContato),
-    FOREIGN KEY(idInformacoes) REFERENCES informacoescliente(idInformacoes)
+    FOREIGN KEY(idEnderecoC) REFERENCES enderecocliente(idEnderecoC) ON DELETE CASCADE,
+	FOREIGN KEY(idContato) REFERENCES contatocliente(idContato) ON DELETE CASCADE,
+    FOREIGN KEY(idInformacoes) REFERENCES informacoescliente(idInformacoes) ON DELETE CASCADE
 );
 
-ALTER TABLE vendas ADD FOREIGN KEY (idProduto) REFERENCES produtos(idProduto);
+ALTER TABLE vendas ADD FOREIGN KEY (idProduto) REFERENCES produtos(idProduto) ON DELETE CASCADE;
 
 INSERT INTO bairros VALUES
 (null, "Garcia"),

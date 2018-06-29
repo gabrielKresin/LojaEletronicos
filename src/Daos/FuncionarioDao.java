@@ -6,6 +6,7 @@ import Beans.FuncionarioBean;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -151,6 +152,31 @@ public class FuncionarioDao {
 
     }
 
+    public ArrayList carregaFuncionario(){
+        
+        ArrayList<String> funcionarios = new ArrayList<>();
+        
+        String sql = "SELECT nomeFuncionario FROM funcionarios ";
+        
+        try {
+            
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                
+                funcionarios.add(rs.getString("nomeFuncionario"));
+               
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar funcionários!");
+        }
+        
+        return funcionarios;
+        
+    }
+    
     public boolean verificaCpf(long cpf) {
         boolean existente = false;
 
@@ -231,10 +257,99 @@ public class FuncionarioDao {
 
     public void alterarFuncionario(FuncionarioBean fb) {
 
+        /*
+        UPDATE enderecofuncionario SET ruaFuncionario = "kaka", idBairros = 4, numeroCasaFuncionario = 666, complemento = "Nenhum" WHERE idEnderecoF = 1;
+        UPDATE contatofuncionario SET emailFuncionario = "kaka@inferno.hell", numeroContato = 666666666 WHERE idContatoF = 1;
+        UPDATE informacoesfuncionario SET idadeFuncionario = 69, CPFFuncionario = 66666666669, SexoFuncionario = "Masculino" WHERE idInformacoesFuncionario = 1;
+        UPDATE funcionarios SET nomeFuncionario = "xd", idCargo = 7 WHERE idFuncionario = 1;
+        */
+        
+        String sql = "";
+        
     }
 
-    public void excluirFuncionario(int idFuncionario) {
+    public void excluirFuncionario(String funcionario) {
 
+        int idFuncionario = 0;
+        
+        String sql = "SELECT idFuncionario FROM funcionarios WHERE nomeFuncionario = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, funcionario);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idFuncionario = rs.getInt("idFuncionario");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar funcionários!" + e.getMessage());
+
+        }
+        
+        //excluir funcionário da tabela funcionários
+        sql = "DELETE FROM funcionarios WHERE idFuncionario = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idFuncionario);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir funcionário!" + e.getMessage());
+        }
+        
+        //excluir endereco do funcionario da tabela enderecofuncionario
+        sql = "DELETE FROM enderecofuncionario WHERE idEnderecoF = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idFuncionario);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir enderecofuncionario!" + e.getMessage());
+        }
+        
+        //excluir informacoes do funcionario da tabela informacoesfuncionario
+        sql = "DELETE FROM informacoesfuncionario WHERE idInformacoesfuncionario = ?";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idFuncionario);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir informacoesfuncionario!" + e.getMessage());
+        }
+        
+        //excluir contato do funcionario da tabela contatofuncionario
+        sql = "DELETE FROM contatofuncionario WHERE idContatoF = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, idFuncionario);
+            
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir contatofuncionario!" + e.getMessage());
+        }
+        
     }
 
     public DefaultTableModel listarParaAlterar() {

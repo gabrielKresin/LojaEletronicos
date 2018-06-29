@@ -116,7 +116,7 @@ public class CaixaView extends javax.swing.JFrame {
 
         //validar se a quantidade é menor que o total
         try {
-            if (vb.getTotal() < Double.parseDouble(txtDinheiro.getText())) {
+            if (vb.getTotal() > Double.parseDouble(txtDinheiro.getText())) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Quantidade de dinheiro inválida!");
                 return;
