@@ -1,0 +1,473 @@
+DROP DATABASE lojaeletronicos;
+
+CREATE DATABASE lojaeletronicos;
+
+
+CREATE TABLE Marcas (
+	idMarca INT AUTO_INCREMENT,
+	nomeMarca varchar(50) NOT NULL,
+	PRIMARY KEY (idMarca)
+);
+
+
+CREATE TABLE estoque (
+	idEstoque INT AUTO_INCREMENT,
+	quantidadeEstoque INT NOT NULL,
+	PRIMARY KEY (idEstoque)
+);
+
+CREATE TABLE vendas (
+	idVendas INT AUTO_INCREMENT,
+	idProduto INT,
+	valorVenda DECIMAL(10,2) NOT NULL,
+	quantidadeVenda INT NOT NULL,
+	PRIMARY KEY (idVendas)
+);
+
+CREATE TABLE produtos (
+	idProduto INT AUTO_INCREMENT,
+	nomeProduto varchar(100) NOT NULL,
+	idMarca INT NOT NULL,
+	valor DECIMAL(10,2) NOT NULL,
+    	idEstoque INT,
+	PRIMARY KEY (idProduto),
+    	FOREIGN KEY(idMarca) REFERENCES marcas(idMarca),
+    	FOREIGN KEY(idEstoque) REFERENCES estoque(idEstoque)
+);
+
+
+CREATE TABLE Bairros (
+	idBairros INT AUTO_INCREMENT,
+	nomeBairro varchar(60) NOT NULL,
+	PRIMARY KEY (idBairros)
+);
+
+
+CREATE TABLE enderecoFuncionario (
+	idEnderecoF INT AUTO_INCREMENT,
+	ruaFuncionario varchar(60) NOT NULL,
+	idBairros INT NOT NULL,
+	numeroCasaFuncionario INT NOT NULL,
+	complemento varchar(40) NOT NULL,
+	PRIMARY KEY (idEnderecoF),
+    FOREIGN KEY(idBairros) REFERENCES bairros(idBairros)
+);
+
+
+
+CREATE TABLE contatoFuncionario (
+	idContatoF INT AUTO_INCREMENT,
+	emailFuncionario VARCHAR(100) NOT NULL,
+	numeroContato INT NOT NULL,
+	PRIMARY KEY (idContatoF)
+);
+
+
+CREATE TABLE informacoesFuncionario (
+	idInformacoesFuncionario INT AUTO_INCREMENT,
+	idadeFuncionario INT NOT NULL,
+	CPFFuncionario BIGINT NOT NULL,
+	SexoFuncionario VARCHAR(40) NOT NULL,
+	PRIMARY KEY (idInformacoesFuncionario)
+);
+
+
+CREATE TABLE Cargos (
+	idCargo INT AUTO_INCREMENT,
+	nomeCargo varchar(40) NOT NULL,
+	salario DECIMAL(10,2) NOT NULL,
+	PRIMARY KEY (idCargo)
+);
+
+
+CREATE TABLE funcionarios (
+	idFuncionario INT AUTO_INCREMENT,
+	nomeFuncionario varchar(60) NOT NULL,
+	idContatoF INT NOT NULL,
+	idEnderecoF INT NOT NULL,
+	idInformacoesFuncionario INT NOT NULL,
+	idCargo INT NOT NULL,
+	PRIMARY KEY (idFuncionario),
+    	FOREIGN KEY(idContatoF) REFERENCES contatofuncionario(idContatoF),
+    	FOREIGN KEY(idEnderecoF) REFERENCES enderecofuncionario(idEnderecoF),
+    	FOREIGN KEY(idInformacoesFuncionario) REFERENCES informacoesfuncionario(idInformacoesFuncionario),
+    	FOREIGN KEY(idCargo) REFERENCES cargos(idCargo)
+);
+
+
+CREATE TABLE informacoesCliente (
+	idInformacoes INT AUTO_INCREMENT,
+	idadeCliente INT NOT NULL,
+	CPFCliente BIGINT NOT NULL,
+	SexoCliente varchar(40) NOT NULL,
+	PRIMARY KEY (idInformacoes)
+);
+
+
+
+CREATE TABLE contatoCliente (
+	idContato INT AUTO_INCREMENT,
+	emailCliente varchar(100) NOT NULL,
+	celularCliente INT NOT NULL,
+	telefoneCliente INT,
+	PRIMARY KEY (idContato)
+);
+
+
+CREATE TABLE enderecoCliente (
+	idEnderecoC INT AUTO_INCREMENT,
+	RuaCliente varchar(60),
+	idBairros INT NOT NULL,
+	numeroCasaCliente INT NOT NULL,
+	complemento varchar(40) NOT NULL,
+	PRIMARY KEY (idEnderecoC),
+    FOREIGN KEY(idBairros) REFERENCES bairros(idBairros)
+);
+
+
+
+CREATE TABLE Clientes (
+	idCliente INT AUTO_INCREMENT,
+	idEnderecoC INT NOT NULL,
+	idContato INT NOT NULL,
+	idInformacoes INT NOT NULL,
+	nomeCliente varchar(50) NOT NULL,
+	PRIMARY KEY (idCliente),
+    FOREIGN KEY(idEnderecoC) REFERENCES enderecocliente(idEnderecoC),
+	FOREIGN KEY(idContato) REFERENCES contatocliente(idContato),
+    FOREIGN KEY(idInformacoes) REFERENCES informacoescliente(idInformacoes)
+);
+
+ALTER TABLE vendas ADD FOREIGN KEY (idProduto) REFERENCES produtos(idProduto);
+
+INSERT INTO bairros VALUES
+(null, "Garcia"),
+(null, "Fortaleza"),
+(null, "Centro"),
+(null, "Vila Nova"),
+(null, "Água Verde"),
+(null, "Velha"),
+(null, "Itoupava Seca"),
+(null, "Itoupava Norte"),
+(null, "Nova Esperança"),
+(null, "Vila Formosa"),
+(null, "Vorstadt"),
+(null, "Progresso"),
+(null, "Itoupavazinha"),
+(null, "Salto do Norte"),
+(null, "Paço Manso"),
+(null, "Testo Salto"),
+(null, "Escola Agrícola"),
+(null, "Victor Konder"),
+(null, "Ponta Aguda"),
+(null, "Tribess");
+
+INSERT INTO marcas VALUES
+(null, "Alcatel"),
+(null, "Apple"),
+(null, "LG"),
+(null, "Asus"),
+(null, "Samsung"),
+(null, "Nokia"),
+(null, "Motorola"),
+(null, "Xiaomi"),
+(null, "Lenovo"),
+(null, "Multilaser"),
+(null, "Sony"),
+(null, "HTC"),
+(null, "Huawei"),
+(null, "BlackBerry"),
+(null, "Toshiba"),
+(null, "wiko"),
+(null, "Positivo"),
+(null, "Venko"),
+(null, "Philipps"),
+(null, "T-mobile");
+
+
+INSERT INTO estoque VALUES 
+(null, 10), 
+(null, 280), 
+(null, 250), 
+(null, 80), 
+(null, 41), 
+(null, 150), 
+(null, 120), 
+(null, 150), 
+(null, 70), 
+(null, 200), 
+(null, 300), 
+(null, 140), 
+(null, 453), 
+(null, 280), 
+(null, 250), 
+(null, 589), 
+(null, 186), 
+(null, 558), 
+(null, 280), 
+(null, 100), 
+(null, 184), 
+(null, 249), 
+(null, 100), 
+(null, 140), 
+(null, 950);
+
+INSERT INTO produtos VALUES
+(null, "iPhone 5S", 2, 1200.00, 1),
+(null, "Alcatel A7 XL 7071D", 1, 2000.00, 2),
+(null, "Huawei Enjoy 8 Plus", 13, 800.00, 3),
+(null, "Philips Xenium W732", 19, 400.00, 4),
+(null, "Sony Xperia XA2 Dual H4113", 11, 2600.00, 5),
+(null, "Multilaser MS80 32GB", 10, 1400.00, 6),
+(null, "LG G7 ThinQ G710AWM", 3, 3000.00, 7),
+(null, "Lenovo K6 16GB", 9, 2300.00, 8),
+(null, "iPhone 6", 2, 2100.00, 9),
+(null, "LG V30 H933", 3, 1800.00, 10),
+(null, "Alcatel A5 LED 5085H", 1, 1500.00, 11),
+(null, "BlackBerry Key2 BBF100-1", 14, 800.00, 12),
+(null, "Positivo P65", 17, 140.00, 13),
+(null, "T-Mobile Concord II", 20, 500.00, 14),
+(null, "Toshiba TG02", 15, 1150.00, 15),
+(null, "Samsung Galaxy J6 SM-J600F", 5, 2400.00, 16),
+(null, "Nokia 7 Plus (4GB RAM)", 6, 2300.00, 17),
+(null, "Motorola Moto E5 Plus XT1924-1 16GB", 7, 1200.00, 18),
+(null, "Motorola Moto G6 Play XT1922-2", 7, 2050.40, 19),
+(null, "HTC U11 Life 32GB", 12, 470.00, 20),
+(null, "Venko Ideal II QBQS", 18, 230.94, 21),
+(null, "Xiaomi Mi 8 128GB", 8, 1250.00, 22),
+(null, "Asus Zenfone 4 Selfie ZD553KL 3GB/32GB", 4, 1630.00, 23),
+(null, "Iphone X", 2, 7000.00, 24),
+(null, "Wiko Fever 4G 32GB", 16, 700.00, 25);
+
+INSERT INTO vendas VALUES
+(null, 1, 1200.00, 15),
+(null, 2, 2000.00, 15),
+(null, 3, 800.00, 20),
+(null, 4, 400.00, 32),
+(null, 5,2600.00, 20),
+(null, 6, 1400.00, 90),
+(null, 7, 3000.00, 12),
+(null, 8, 2300.00, 15),
+(null, 9, 2100.00, 70),
+(null, 10, 1800.00, 20),
+(null, 11, 1500.00, 30),
+(null, 12, 800.00, 98),
+(null, 13, 140.00, 49),
+(null, 14, 500.00, 28),
+(null, 15, 1150.00, 120),
+(null, 16, 2400.00, 512),
+(null, 17, 2300.00, 122),
+(null, 18, 1200.00, 550),
+(null, 19, 2050.40, 230),
+(null, 20,470.00, 10),
+(null, 21,230.94, 134),
+(null, 22, 1250.00, 240),
+(null, 23,1630.00, 10),
+(null, 24, 7000.00, 100),
+(null, 25, 700.00, 95);
+
+INSERT INTO cargos VALUES
+(null, "Estágiario", 1351.00),
+(null, "Consultor", 5500.00),
+(null, "Vendedor", 1550.00),
+(null, "Gerente", 8200.00),
+(null, "Analista", 3000.00),
+(null, "Analista sênior", 5000.00),
+(null, "Supervisor", 2397.32),
+(null, "Analista de marketing júnior", 2700.00),
+(null, "Analista de marketing pleno", 3900.00),
+(null, "Analista de marketing sênior", 5815.00),
+(null, "Consultor sênior", 7695.00),
+(null, "Gerente de divisão", 19465.00),
+(null, "Gerente sênior", 20303.00),
+(null, "Assistente Administrativo", 1500.00),
+(null, "Técnico", 1805.00),
+(null, "Gerente de Contas", 3995.00),
+(null, "Consultor de Negócios", 1652.00),
+(null, "Recepcionsita", 1000.00),
+(null, "Secretária", 1205.00),
+(null, "Trainee", 3400.00);
+
+INSERT INTO enderecofuncionario VALUES
+(null, "Rua Abacateiro", 18, 184, "Apartamento"),
+(null, "Rua Abílio Michelluzzi", 13, 4120, "Casa"),
+(null, "Rua Achiles Jacobsen", 1, 149, ""),
+(null, "Rua Acácio Pereiro", 8, 204, "Casa"),
+(null, "Rua Açores", 20, 1240, "Apartamento"),
+(null, "Rua Acre", 9, 2410, "Apartamento"),
+(null, "Rua Acrisio Moreira da Costa", 5, 100, ""),
+(null, "Rua 30 de Outubro", 19, 2900, "Casa"),
+(null, "Rua 6 de agosto", 10, 40, ""),
+(null, "Aveniada Rio do Sul", 11, 1230, "Apartamento"),
+(null, "Rua 30 de agosto", 12, 120, "Casa"),
+(null, "Rua Setenta e Oito e Meio", 2, 1344, "Casa"),
+(null, "Rua Romarinho", 15, 1555, "Casa"),
+(null, "Rua Obrigado", 7, 110, ""),
+(null, "Rua Urupema", 17, 2, "Casa"),
+(null, "Rua Ipatinga", 14, 2224, "Apartamento"),
+(null, "Rua Java", 3, 350, "Apartamento"),
+(null, "Rua Adobe Strike 1.6", 6, 321, "Casa"),
+(null, "Rua Jorge do Sul", 16, 144, "Casa"),
+(null, "Rua Tobias Barreto", 4, 443, "Apartamnto"),
+(null, "Rua Julio Kleine", 6, 246, "Casa"),
+(null, "Rua 90 de Agosto", 10, 200, "Apartamento");
+
+INSERT INTO contatofuncionario VALUES
+(null, "rafael.coelho12@gmail.com", 998849049),
+(null, "claudia.roberta@gmail.com", 949568309),
+(null, "luizfelipe223@hotmail.com", 988526478),
+(null, "jorgeda_silva@gmail.com", 988224894),
+(null, "joao.boltz@outlook.com.br", 9745326648),
+(null, "ricardo.dallarios@gmail.com", 988749657),
+(null, "robertodasilva@hotmail.com", 940029875),
+(null, "jailsonMendes@gmail.com", 979465858),
+(null, "gustavoMartins@gmail.com", 987896348),
+(null, "suellen123@gmail.com", 987458963),
+(null, "carolinedasilva23@gmail.com", 989982114),
+(null, "luizinacio@gmail.com", 978987525),
+(null, "luiza.jacobsen@gmail.com", 97895254),
+(null, "lucas.volkmann@gmail.com", 940028922),
+(null, "jessiquinha1234@hotmail.com", 978587429),
+(null, "jair.felipe@bol.com.br", 984587845),
+(null, "jonas2909@gmail.com", 995450904),
+(null, "cristiane.soares@hotmail.com", 978569428),
+(null, "guilherme.bortinelli@gmail.com", 92578569),
+(null, "douglas.2@gmail.com", 922897822),
+(null, "galileu.jonas@hotmail.com", 978986598),
+(null, "marcelo12@outlook.com.br", 912894549);
+
+INSERT INTO informacoesfuncionario VALUES
+(null, 32, 85404595422, "Masculino"),
+(null, 27, 85448520533, "Masculino"),
+(null, 18, 85748549522, "Feminino"),
+(null, 32, 45946506948, "Masculino"),
+(null, 24, 29429429434, "Masculino"),
+(null, 19, 40504596044, "Masculino"),
+(null, 42, 10294958322, "Masculino"),
+(null, 21, 12340358390, "Masculino"),
+(null, 27, 12321345355, "Feminino"),
+(null, 19, 12343556653, "Masculino"),
+(null, 33, 47563565422, "Feminino"),
+(null, 22, 42435465655, "Masculino"),
+(null, 43, 32874069375, "Feminino"),
+(null, 21, 23435462168, "Masculino"),
+(null, 46, 32095048406, "Masculino"),
+(null, 82, 23232321231, "Masculino"),
+(null, 13, 13549543837, "Masculino"),
+(null, 38, 42342398423, "Masculino"),
+(null, 43, 34239848923, "Feminino"),
+(null, 18, 48239423943, "Feminino"),
+(null, 29, 43289423894, "Masculino"),
+(null, 22, 49243204234, "Masculino");
+
+INSERT INTO funcionarios VALUES
+(null, "Rafael Coelho", 1, 4, 2, 3),
+(null, "Cláudia Roberta", 2, 9, 8, 2),
+(null, "Luiz Felipe", 3, 11, 12, 9),
+(null, "Jorge da Silva", 4, 5, 3, 3),
+(null, "Joao Boltz", 5, 7, 19, 13),
+(null, "Ricardo Dallarios", 6, 2, 1, 16),
+(null, "Roberto da Silva", 7, 19, 7, 18),
+(null, "Jailson Mendes", 8, 8, 5, 12),
+(null, "Gustavo Martins", 9, 10, 4, 1),
+(null, "Suellen Pereira", 10, 1, 13, 20),
+(null, "Caroline da Silva", 11, 3, 10, 11),
+(null, "Luiz Inácio", 12, 6, 6, 15),
+(null, "Luiza Jacobsen", 13, 14, 9, 17),
+(null, "Lucas Volkmann", 14, 18, 11, 5),
+(null, "Jéssica Pato", 15, 13, 14, 4),
+(null, "Jair Felipe II", 16, 12, 22, 8),
+(null, "Jonas Pereira", 17, 21, 15, 10),
+(null, "Cristiane Ronalda",18 , 22, 21, 14),
+(null, "Guilherme Bortinelli", 19, 20, 18, 19),
+(null, "Douglas Costa", 20, 17, 20, 7),
+(null, "Galileu Jonas", 21, 15, 16, 6),
+(null, "Marcelo Graça", 22, 16, 17, 6 );
+
+INSERT INTO enderecocliente VALUES
+(null, "Rua Paraiba", 3, 432, "Casa"),
+(null, "Rua Joinville", 4, 654, "Apartamento"),
+(null, "Rua Curitiba", 15, 23423, "Apartamento"),
+(null, "Rua 15 de agosto", 6, 123, "Casa"),
+(null, "Rua 43 de setembro", 1, 343, "Apartamento"),
+(null, "Avenida Garça Velha", 9, 2, "Casa"),
+(null, "Rua Ahosto", 8, 444, "Casa"),
+(null, "Rua Irineu", 19, 244, "Casa"),
+(null, "Rua Roberto Carlos", 2, 123, "Casa"),
+(null, "Rua Pelé", 5, 20, "Casa"),
+(null, "Rua Sem saída", 18, 14, "Apartamento"),
+(null, "Rua 30 de janeiro", 16, 299, "Casa"),
+(null, "Rua Barão", 7, 2524, "Casa"),
+(null, "Rua Teodoro", 11, 1433, "Apartamento"),
+(null, "Rua Pikachu", 13, 1444, "Casa"),
+(null, "Rua Com Saída", 17, 22210, "Apartamento"),
+(null, "Rua Galegão", 20, 900, "Apartamento"),
+(null, "Rua Pichau", 12, 43242, "Casa"),
+(null, "Rua 30 de dezembro", 10, 4324, "Apartamento"),
+(null, "Rua São Paulo", 14, 1234564, "Apartamento");
+
+INSERT INTO contatocliente VALUES 
+(null, "rafaela14@gmail.com", 987854293, 23148569),
+(null, "jose15@gmail.com", 954987453, 33659875),
+(null, "maria17@gmail.com", 989745237, 3325697),
+(null, "analaura22@gmail.com", 98796547, 33659742),
+(null, "joaoveneri5@gmail.com", 978546987, 33698748),
+(null, "antoniofurtado55@gmail.com", 987459678, 33265981),
+(null, "franciscocorreia@gmail.com", 954784528, 33697523),
+(null, "carlosklein@gmail.com", 954525987, 33659874),
+(null, "fernandazimmermam@gmail.com", 988745931, 33236587),
+(null, "neymarjunior10@gmail.com", 987458297, 33965871),
+(null, "philippecoutinho11@gmail.com", 987458297, 78549328),
+(null, "gabrieljesus9@gmail.com", 999874526, 33974527),
+(null, "willianborges19@gmail.com", 998745829, 78529871),
+(null, "paulinhobezerra15@gmail.com", 987452598, 33958475),
+(null, "casemiro5@gmail.com", 978448532, 33239847),
+(null, "marcelodasilva12@gmail.com", 987452982, 33947852),
+(null, "mirandadesouza3@gmail.com", 978542875, 33985475),
+(null, "thiagosilva2@gmail.com", 987482978, 33974859),
+(null, "danilodasilva14@gmail.com", 987482987, 33239857),
+(null, "alissonremses1@gmail.com", 978547823, 33394582);
+
+INSERT INTO informacoescliente VALUES 
+(null, 20, 785014938, "Feminino"),
+(null, 26, 342432432, "Feminino"),
+(null, 26, 432432424, "Feminino"),
+(null, 29, 323211321, "Feminino"),
+(null, 21, 346756465, "Masculino"),
+(null, 23, 564878458, "Masculino"),
+(null, 18, 154542544, "Masculino"),
+(null, 22, 874541865, "Masculino"),
+(null, 23, 878821545, "Masculino"),
+(null, 24, 454845232, "Masculino"),
+(null, 25, 545479845, "Masculino"),
+(null, 30, 879756987, "Masculino"),
+(null, 32, 878745641, "Masculino"),
+(null, 28, 549847641, "Masculino"),
+(null, 21, 787874153, "Masculino"),
+(null, 22, 656321877, "Masculino"),
+(null, 23, 123658987, "Masculino"),
+(null, 28, 789756156, "Masculino"),
+(null, 24, 897894561, "Masculino"),
+(null, 24, 789524185, "Masculino");
+
+INSERT INTO clientes VALUES
+(null, 2, 1, 1, "Rafaela Gonçalves"),
+(null, 1, 2, 20, "Jose Soares"),
+(null, 4, 3, 19, "Maria da Silva"),
+(null, 3, 4, 18, "Ana Laura Cardozo"),
+(null, 6, 5, 17, "Joao Veneri"),
+(null, 5, 6, 16, "Antonio Furtado"),
+(null, 8, 7, 15, "Francisco Correia"),
+(null, 7, 8, 14, "Carlos Klein"),
+(null, 10, 9, 13, "Fernanda Zimmerman"),
+(null, 9, 10, 12, "Neymar Junior"),
+(null, 12, 11, 11, "Philippe Coutinho"),
+(null, 11, 12, 10, "Gabriel Jesus"),
+(null, 14, 13, 9, "Willian Borges"),
+(null, 13, 14, 8, "Paulo Bezerra"),
+(null, 16, 15, 7, "Carlos Casemiro"),
+(null, 15, 16, 6, "Marcelo da Silva"),
+(null, 18, 17, 5, "Miranda de Souza"),
+(null, 17, 18, 4, "Thiago Silva"),
+(null, 20, 19, 3, "Danilo da Silva"),
+(null, 19, 20, 2, "Alisson Remses");
