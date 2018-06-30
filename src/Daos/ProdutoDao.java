@@ -158,6 +158,56 @@ public class ProdutoDao {
     
     public void alterarProduto(ProdutoBean pb){
         
+        int idMarca = 0;
+        
+        //Verificar qual o marca selecionada
+        String sql = "SELECT idMarca FROM marcas WHERE nomeMarca = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, pb.getMarcaProduto());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idMarca = rs.getInt("idMarca");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar marcas!" + e.getMessage());
+
+        }
+        
+        sql = "UPDATE estoque SET quantidadeEstoque = ? WHERE idEstoque = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, pb.getEstoqueProduto());
+            pstmt.setInt(2, pb.getIdProdutoAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar estoque! "+e.getMessage());
+        }
+        
+        sql = "UPDATE produtos SET nomeProduto = ? , valor = ? WHERE idProduto = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, pb.getNomeProduto());
+            pstmt.setDouble(2, pb.getValorProduto());
+            pstmt.setInt(3, pb.getIdProdutoAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar produto! "+e.getMessage());
+        }
+        
     }
     
     public void excluirProduto(String produto){

@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import javax.swing.JOptionPane;
+import Daos.ClienteDao;
+import Beans.ClienteBean;
 
-/**
- *
- * @author 104869
- */
 public class AlterarClienteDados extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlterarClienteDados
-     */
     public AlterarClienteDados() {
         initComponents();
     }
@@ -271,9 +261,8 @@ public class AlterarClienteDados extends javax.swing.JFrame {
         }
 
         //validar cpf existente?
-        
         try {
-            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+            if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Selecione um sexo!");
                 return;
@@ -312,10 +301,10 @@ public class AlterarClienteDados extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Celular inválido!");
         }
-        
+
         try {
-            if(!txtTelefone.getText().isEmpty()){
-                if((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length()) < 8){
+            if (!txtTelefone.getText().isEmpty()) {
+                if ((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length()) < 8) {
                     invalido = true;
                     JOptionPane.showMessageDialog(null, "Telefone inválido!");
                     return;
@@ -325,13 +314,29 @@ public class AlterarClienteDados extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Telefone inválido!");
         }
-        
+
         //Pegar dados da combo
         //Salvar no banco
-        
-        this.dispose();
-        MainView mv = new MainView();
-        mv.setVisible(true);
+        if (invalido == false) {
+            ClienteBean cb = new ClienteBean();
+            ClienteDao cd = new ClienteDao();
+            cb.setNomeCliente(txtNome.getText());
+            cb.setIdadeCliente(Integer.parseInt(txtIdade.getText()));
+            cb.setCpfCliente(Long.parseLong(txtCpf.getText()));
+            cb.setSexoCliente(sexo);
+            cb.setEmailCliente(txtEmail.getText());
+            cb.setCelularCliente(Long.parseLong(txtCelular.getText()));
+            cb.setTelefoneCliente(Long.parseLong(txtTelefone.getText()));
+            cb.setBairroCliente(String.valueOf(comboBairro.getSelectedItem()));
+            cb.setRuaCliente(String.valueOf(comboRua.getSelectedItem()));
+            cb.setNumeroCasaCliente(Integer.parseInt(txtNumero.getText()));
+            cb.setComplementoCliente(String.valueOf(comboComplemento.getSelectedItem()));
+            cd.alterarCliente(cb);
+            this.dispose();
+            MainView mv = new MainView();
+            mv.setVisible(true);
+        }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -241,7 +241,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
-        
+
         try {
             if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
                 invalido = true;
@@ -252,7 +252,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
-        
+
         try {
             if (txtCPF.getText().length() > 11) {
                 invalido = true;
@@ -266,7 +266,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
 
         //Validar se o CPF já existe?
         try {
-            if ((!optionMasc.isSelected()) || (!optionFem.isSelected())) {
+            if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Selecione um sexo!");
                 return;
@@ -275,14 +275,14 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Selecione um sexo!");
         }
-        
-        if(optionMasc.isSelected()){
+
+        if (optionMasc.isSelected()) {
             sexo = "Masculino";
-        }else{
+        } else {
             sexo = "Feminino";
         }
 
-        if(invalido == false){
+        if (invalido == false) {
             FuncionarioDao fd = new FuncionarioDao();
             FuncionarioBean fb = new FuncionarioBean();
             fb.setNomeFuncionario(txtNome.getText());
@@ -297,11 +297,11 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             fb.setComplementoFuncionario(String.valueOf(comboComplemento.getSelectedItem()));
             fb.setCargoFuncionario(String.valueOf(comboCargo.getSelectedItem()));
             fd.alterarFuncionario(fb);
+            this.dispose();
+            MainView mv = new MainView();
+            mv.setVisible(true);
         }
-        
-        this.dispose();
-        MainView mv = new MainView();
-        mv.setVisible(true);
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

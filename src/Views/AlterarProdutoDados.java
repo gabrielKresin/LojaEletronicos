@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import javax.swing.JOptionPane;
+import Beans.ProdutoBean;
+import Daos.ProdutoDao;
 
-/**
- *
- * @author 104869
- */
 public class AlterarProdutoDados extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlterarProdutoDados
-     */
     public AlterarProdutoDados() {
         initComponents();
     }
@@ -173,6 +163,15 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
 
         //Passar dados pro bean
         //Salvar no banco
+        if(invalido == false){
+            ProdutoBean pb = new ProdutoBean();
+            ProdutoDao pd = new ProdutoDao();
+            pb.setNomeProduto(txtNome.getText());
+            pb.setMarcaProduto(String.valueOf(comboMarca.getSelectedItem()));
+            pb.setValorProduto(Double.parseDouble(txtValor.getText()));
+            pb.setEstoqueProduto(Integer.parseInt(txtQuantidade.getText()));
+            pd.alterarProduto(pb);
+        }
         
         this.dispose();
         MainView mv = new MainView();

@@ -257,14 +257,106 @@ public class FuncionarioDao {
 
     public void alterarFuncionario(FuncionarioBean fb) {
 
-        /*
-        UPDATE enderecofuncionario SET ruaFuncionario = "kaka", idBairros = 4, numeroCasaFuncionario = 666, complemento = "Nenhum" WHERE idEnderecoF = 1;
-        UPDATE contatofuncionario SET emailFuncionario = "kaka@inferno.hell", numeroContato = 666666666 WHERE idContatoF = 1;
-        UPDATE informacoesfuncionario SET idadeFuncionario = 69, CPFFuncionario = 66666666669, SexoFuncionario = "Masculino" WHERE idInformacoesFuncionario = 1;
-        UPDATE funcionarios SET nomeFuncionario = "xd", idCargo = 7 WHERE idFuncionario = 1;
-        */
+        System.out.println(fb.getIdFuncionarioAlterado());
+        int idBairro = 0;
+        int idCargo = 0;
         
-        String sql = "";
+         String sql = "SELECT idBairros FROM bairros WHERE nomeBairro = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, fb.getBairroFuncionario());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idBairro = rs.getInt("idBairros");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar bairros!" + e.getMessage());
+
+        }
+        
+        //Pegar id do cargo a ser cadastrado
+        try {
+            sql = "SELECT idCargo FROM cargos WHERE nomeCargo = ? ";
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            System.out.println(sql);
+            pstmt.setString(1, fb.getCargoFuncionario());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idCargo = rs.getInt("idCargo");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar cargo "+e.getMessage());
+        }
+        
+        sql = "UPDATE enderecofuncionario SET ruaFuncionario = ? , idBairros = ? , numeroCasaFuncionario = ? , complemento = ? WHERE idEnderecoF = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, fb.getRuaFuncionario());
+            pstmt.setInt(2, idBairro);
+            pstmt.setInt(3, fb.getNumeroCasaFuncionario());
+            pstmt.setString(4, fb.getComplementoFuncionario());
+            pstmt.setInt(5, fb.getIdFuncionarioAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar endereço! "+e.getMessage());
+        }
+        
+        sql = "UPDATE contatofuncionario SET emailFuncionario = ? , numeroContato = ? WHERE idContatoF = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, fb.getEmailFuncionario());
+            pstmt.setLong(2, fb.getNumeroContatoFuncionario());
+            pstmt.setInt(3, fb.getIdFuncionarioAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar contato do funcionário! "+e.getMessage());
+        }
+        
+        sql = "UPDATE informacoesfuncionario SET idadeFuncionario = ? , CPFFuncionario = ? , SexoFuncionario = ? WHERE idInformacoesFuncionario = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, fb.getIdadeFuncionario());
+            pstmt.setLong(2, fb.getCpfFuncionario());
+            pstmt.setString(3, fb.getSexoFuncionario());
+            pstmt.setInt(4, fb.getIdFuncionarioAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar informações do funcionário! "+e.getMessage());
+        }
+        
+        sql = "UPDATE funcionarios SET nomeFuncionario = ? , idCargo = ? WHERE idFuncionario = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, fb.getNomeFuncionario());
+            pstmt.setInt(2, idCargo);
+            pstmt.setInt(3, fb.getIdFuncionarioAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar funcionário! "+e.getMessage());
+        }
         
     }
 

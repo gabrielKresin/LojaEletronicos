@@ -1,7 +1,5 @@
 package Beans;
 
-import java.util.ArrayList;
-
 public class ProdutoBean {
     
     private int idProduto;
@@ -9,6 +7,15 @@ public class ProdutoBean {
     private double valorProduto;
     private String marcaProduto;
     private int estoqueProduto;
+    static private int idProdutoAlterado;
+
+    public static int getIdProdutoAlterado() {
+        return idProdutoAlterado;
+    }
+
+    public static void setIdProdutoAlterado(int idProdutoAlterado) {
+        ProdutoBean.idProdutoAlterado = idProdutoAlterado;
+    }
 
     public int getIdProduto() {
         return idProduto;

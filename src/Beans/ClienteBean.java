@@ -14,6 +14,15 @@ public class ClienteBean {
     private String emailCliente;
     private long celularCliente;
     private long telefoneCliente;
+    static private int idClienteAlterado;
+
+    public static int getIdClienteAlterado() {
+        return idClienteAlterado;
+    }
+
+    public static void setIdClienteAlterado(int idClienteAlterado) {
+        ClienteBean.idClienteAlterado = idClienteAlterado;
+    }
 
     public int getIdCliente() {
         return idCliente;

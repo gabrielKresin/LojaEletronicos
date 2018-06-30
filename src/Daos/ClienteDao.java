@@ -202,6 +202,96 @@ public class ClienteDao {
     
     public void alterarCliente(ClienteBean cb){
         
+        int idBairro = 0;
+        
+        String sql = "SELECT idBairros FROM bairros WHERE nomeBairro = ? ";
+
+        try {
+
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, cb.getBairroCliente());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                idBairro = rs.getInt("idBairros");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao buscar bairros!" + e.getMessage());
+
+        }
+        
+        /*
+        UPDATE enderecofuncionario SET ruaFuncionario = "kaka", idBairros = 4, numeroCasaFuncionario = 666, complemento = "Nenhum" WHERE idEnderecoF = 1;
+        UPDATE contatofuncionario SET emailFuncionario = "kaka@inferno.hell", numeroContato = 666666666 WHERE idContatoF = 1;
+        UPDATE informacoesfuncionario SET idadeFuncionario = 69, CPFFuncionario = 66666666669, SexoFuncionario = "Masculino" WHERE idInformacoesFuncionario = 1;
+        UPDATE funcionarios SET nomeFuncionario = "xd", idCargo = 7 WHERE idFuncionario = 1;
+        */
+        
+        sql = "UPDATE enderecocliente SET RuaCliente = ? , idBairros = ? , numeroCasaCliente = ? , complemento = ? WHERE idEnderecoC = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, cb.getRuaCliente());
+            pstmt.setInt(2, idBairro);
+            pstmt.setInt(3, cb.getNumeroCasaCliente());
+            pstmt.setString(4, cb.getComplementoCliente());
+            pstmt.setInt(5, cb.getIdClienteAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar endereço! "+e.getMessage());
+        }
+        
+        sql = "UPDATE contatocliente SET emailCliente = ? , celularCliente = ? , telefoneCliente = ? WHERE idContato = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, cb.getEmailCliente());
+            pstmt.setLong(2, cb.getCelularCliente());
+            pstmt.setLong(3, cb.getTelefoneCliente());
+            pstmt.setInt(4, cb.getIdClienteAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar contato! "+e.getMessage());
+        }
+        
+        sql = "UPDATE informacoescliente SET idadeCliente = ? , CPFCliente = ? , SexoCliente = ? WHERE idInformacoes = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, cb.getIdadeCliente());
+            pstmt.setLong(2, cb.getCpfCliente());
+            pstmt.setString(3, cb.getSexoCliente());
+            pstmt.setInt(4, cb.getIdClienteAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar informações! "+e.getMessage());
+        }
+        
+        sql = "UPDATE clientes SET nomeCliente = ? WHERE idCliente = ? ";
+        
+        try {
+            
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, cb.getNomeCliente());
+            pstmt.setInt(2, cb.getIdClienteAlterado());
+            pstmt.execute();
+            pstmt.close();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar cliente! "+e.getMessage());
+        }
+        
     }
     
     public void excluirCliente(String cliente){
