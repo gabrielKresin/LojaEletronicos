@@ -8,6 +8,7 @@ public class ExcluirClienteView extends javax.swing.JFrame {
         initComponents();
         ClienteDao cd = new ClienteDao();
         
+        //Carregar clientes na combo
         for (int i = 0; i < cd.carregaClientes().size(); i++) {
             comboCliente.addItem(String.valueOf(cd.carregaClientes().get(i)));
         }
@@ -62,7 +63,7 @@ public class ExcluirClienteView extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -3,6 +3,7 @@ package Views;
 import javax.swing.JOptionPane;
 import Daos.ClienteDao;
 import Beans.ClienteBean;
+import Daos.FuncionarioDao;
 
 public class AlterarClienteDados extends javax.swing.JFrame {
 
@@ -226,18 +227,48 @@ public class AlterarClienteDados extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        ClienteBean cb = new ClienteBean();
+        FuncionarioDao fd = new FuncionarioDao();
+        ClienteDao cd = new ClienteDao();
         String sexo = "";
+
+        //Validar nome
         try {
             if (txtNome.getText().isEmpty()) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "Nome inválido!");
                 return;
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
 
+        //Verificar se esse nome já existe
+        try {
+            if (fd.verificaNome(txtNome.getText()) == true) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+        }
+
+        //Validar idade
+        try {
+            if (txtIdade.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+
+        //Validar faixa etária
         try {
             if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
                 invalido = true;
@@ -249,8 +280,21 @@ public class AlterarClienteDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
 
+        //Validar CPF
         try {
-            if (txtCpf.getText().length() > 11) {
+            if (txtCpf.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //Validar tamanho do CPF
+        try {
+            if ((txtCpf.getText().length() > 11) || (txtCpf.getText().length() < 11)) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "CPF inválido!");
                 return;
@@ -260,7 +304,22 @@ public class AlterarClienteDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         }
 
-        //validar cpf existente?
+        //Verificar se o CPF já existe
+        try {
+            long cpf = Long.parseLong(txtCpf.getText());
+            if (fd.verificaCpf(cpf) == true) {
+                invalido = true;
+                System.out.println(invalido);
+                JOptionPane.showMessageDialog(null, "CPF já cadastrado!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            System.out.println(invalido);
+        }
+
+        //Validar sexo selecionado
         try {
             if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
@@ -272,12 +331,14 @@ public class AlterarClienteDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um sexo!");
         }
 
+        //Verificar sexo selecionado
         if (optionMasc.isSelected()) {
             sexo = "Masculino";
         } else {
             sexo = "Feminino";
         }
 
+        //Validar email
         try {
             if (txtEmail.getText().isEmpty()) {
                 invalido = true;
@@ -285,41 +346,61 @@ public class AlterarClienteDados extends javax.swing.JFrame {
                 return;
             }
         } catch (Exception e) {
-            invalido = true;
             JOptionPane.showMessageDialog(null, "E-mail inválido!");
+            return;
         }
 
+        //Validar Celular
         try {
-            if (!txtCelular.getText().isEmpty()) {
-                if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length()) < 9) {
-                    invalido = true;
-                    JOptionPane.showMessageDialog(null, "Celular inválido!");
-                    return;
-                }
+            if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length() < 9)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Celular inválido!");
+                return;
             }
         } catch (Exception e) {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Celular inválido!");
         }
 
+        //Validar telefone
         try {
-            if (!txtTelefone.getText().isEmpty()) {
-                if ((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length()) < 8) {
-                    invalido = true;
-                    JOptionPane.showMessageDialog(null, "Telefone inválido!");
-                    return;
-                }
+            if ((txtTelefone.getText().length() > 8) || (txtTelefone.getText().length() < 8)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Telefone inválido!");
+                return;
             }
         } catch (Exception e) {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Telefone inválido!");
         }
 
+        //Validar número da casa        
+        try {
+            if (txtNumero.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
+        //Validar valor do número da casa     
+        try {
+            if (Integer.parseInt(txtNumero.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
         //Pegar dados da combo
         //Salvar no banco
         if (invalido == false) {
-            ClienteBean cb = new ClienteBean();
-            ClienteDao cd = new ClienteDao();
             cb.setNomeCliente(txtNome.getText());
             cb.setIdadeCliente(Integer.parseInt(txtIdade.getText()));
             cb.setCpfCliente(Long.parseLong(txtCpf.getText()));

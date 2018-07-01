@@ -39,7 +39,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtIdade = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -94,10 +94,10 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
 
         jLabel7.setText("Número:");
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -116,7 +116,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnConfirmar)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton1)
+                        .addComponent(btnVoltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addGap(66, 66, 66))
@@ -146,10 +146,9 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
                                         .addComponent(optionMasc)
                                         .addGap(18, 18, 18)
                                         .addComponent(optionFem))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtIdade)
+                                    .addComponent(txtCPF)
+                                    .addComponent(txtNome)
                                     .addComponent(txtEmail)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +219,7 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(btnVoltar))
                 .addGap(22, 22, 22))
         );
 
@@ -229,8 +228,12 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        FuncionarioBean fb = new FuncionarioBean();
+        FuncionarioDao fd = new FuncionarioDao();
         boolean invalido = false;
         String sexo = "";
+
+        //Validar nome
         try {
             if (txtNome.getText().isEmpty()) {
                 invalido = true;
@@ -242,6 +245,31 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
 
+        //Verificar se esse nome já existe
+        try {
+            if (fd.verificaNome(txtNome.getText()) == true) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+        }
+
+        //Validar idade
+        try {
+            if (txtIdade.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Idade inválida!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Idade inválida!");
+        }
+
+        //Validar faixa etária
         try {
             if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
                 invalido = true;
@@ -253,8 +281,21 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
 
+        //Validar CPF
         try {
-            if (txtCPF.getText().length() > 11) {
+            if (txtCPF.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //Validar tamanho do CPF
+        try {
+            if ((txtCPF.getText().length() > 11) || (txtCPF.getText().length() < 11)) {
                 invalido = true;
                 JOptionPane.showMessageDialog(null, "CPF inválido!");
                 return;
@@ -264,7 +305,22 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         }
 
-        //Validar se o CPF já existe?
+        //Verificar se o CPF já existe
+        try {
+            long cpf = Long.parseLong(txtCPF.getText());
+            if (fd.verificaCpf(cpf) == true) {
+                invalido = true;
+                System.out.println(invalido);
+                JOptionPane.showMessageDialog(null, "CPF já cadastrado!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            System.out.println(invalido);
+        }
+
+        //Validar sexo selecionado
         try {
             if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
@@ -276,15 +332,62 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um sexo!");
         }
 
+        //Verificar sexo selecionado
         if (optionMasc.isSelected()) {
             sexo = "Masculino";
         } else {
             sexo = "Feminino";
         }
 
+        //Validar email
+        try {
+            if (txtEmail.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "E-mail inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+            return;
+        }
+
+        //Validar Celular
+        try {
+            if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length() < 9)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Celular inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+        }
+
+        //Validar número da casa        
+        try {
+            if (txtNumero.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
+        //Validar valor do número da casa     
+        try {
+            if (Integer.parseInt(txtNumero.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
         if (invalido == false) {
-            FuncionarioDao fd = new FuncionarioDao();
-            FuncionarioBean fb = new FuncionarioBean();
             fb.setNomeFuncionario(txtNome.getText());
             fb.setIdadeFuncionario(Integer.parseInt(txtIdade.getText()));
             fb.setCpfFuncionario(Long.parseLong(txtCPF.getText()));
@@ -310,11 +413,11 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
         mv.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
         AlterarFuncionarioView afv = new AlterarFuncionarioView();
         afv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,11 +457,11 @@ public class AlterarFuncionarioDados extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> comboBairro;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboComplemento;
     private javax.swing.JComboBox<String> comboRua;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

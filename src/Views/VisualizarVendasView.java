@@ -7,6 +7,7 @@ public class VisualizarVendasView extends javax.swing.JFrame {
     public VisualizarVendasView() {
         initComponents();
         VendaDao vd = new VendaDao();
+        //Carregar na tabela as vendas realizadas
         tabelaVendas.setModel(vd.listarVendas());
     }
 

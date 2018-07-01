@@ -8,6 +8,7 @@ public class AlterarProdutoView extends javax.swing.JFrame {
     public AlterarProdutoView() {
         initComponents();
         ProdutoDao pd = new ProdutoDao();
+        //Carregar na tabela os produtos do banco
         tabelaProdutos.setModel(pd.listarParaAlterar());
     }
 
@@ -102,7 +103,9 @@ public class AlterarProdutoView extends javax.swing.JFrame {
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
         ProdutoBean pb = new ProdutoBean();
         
+        //Pegar a linha selecionada
         int linhaSelecionada = tabelaProdutos.getSelectedRow();
+        //Pegar o valor da linha selecionada
         int id = (int) tabelaProdutos.getValueAt(linhaSelecionada, 0);
         pb.setIdProdutoAlterado(id);
         

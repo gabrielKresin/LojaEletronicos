@@ -7,6 +7,7 @@ public class VisualizarFuncionarioView extends javax.swing.JFrame {
     public VisualizarFuncionarioView() {
         initComponents();
         FuncionarioDao fd = new FuncionarioDao();
+        //Carregar na tabela os funcionários cadastrados
         tabelaFuncionarios.setModel(fd.listarFuncionarios());
     }
 

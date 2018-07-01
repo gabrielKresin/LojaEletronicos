@@ -221,6 +221,8 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         FuncionarioDao fd = new FuncionarioDao();
         boolean invalido = false;
         String sexo = "";
+
+        //Validar nome
         try {
             if (txtNome.getText().isEmpty()) {
                 invalido = true;
@@ -232,6 +234,19 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
 
+        //Verificar se esse nome já existe
+        try {
+            if (fd.verificaNome(txtNome.getText()) == true) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+        }
+
+        //Validar idade
         try {
             if (txtIdade.getText().isEmpty()) {
                 invalido = true;
@@ -243,17 +258,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
 
-        try {
-            if (txtCPF.getText().isEmpty()) {
-                invalido = true;
-                JOptionPane.showMessageDialog(null, "CPF inválido!");
-                return;
-            }
-        } catch (Exception ex) {
-            invalido = true;
-            JOptionPane.showMessageDialog(null, "CPF inválido!");
-        }
-
+        //Validar faixa etária
         try {
             if ((Integer.parseInt(txtIdade.getText()) > 120) || (Integer.parseInt(txtIdade.getText()) < 1)) {
                 invalido = true;
@@ -265,6 +270,19 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Idade inválida!");
         }
 
+        //Validar CPF
+        try {
+            if (txtCPF.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                return;
+            }
+        } catch (Exception ex) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+        }
+
+        //Validar tamanho do CPF
         try {
             if ((txtCPF.getText().length() > 11) || (txtCPF.getText().length() < 11)) {
                 invalido = true;
@@ -276,19 +294,22 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         }
 
+        //Verificar se o CPF já existe
         try {
             long cpf = Long.parseLong(txtCPF.getText());
             if (fd.verificaCpf(cpf) == true) {
                 invalido = true;
                 System.out.println(invalido);
-                JOptionPane.showMessageDialog(null, "CPF inválido!");
+                JOptionPane.showMessageDialog(null, "CPF já cadastrado!");
                 return;
             }
         } catch (Exception ex) {
             invalido = true;
-            JOptionPane.showMessageDialog(null, "CPF inválido!"+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
             System.out.println(invalido);
         }
+
+        //Validar sexo selecionado
         try {
             if ((!optionMasc.isSelected()) && (!optionFem.isSelected())) {
                 invalido = true;
@@ -300,12 +321,38 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um sexo!");
         }
 
+        //Verificar sexo selecionado
         if (optionMasc.isSelected()) {
             sexo = "Masculino";
         } else {
             sexo = "Feminino";
         }
 
+        //Validar email
+        try {
+            if (txtEmail.getText().isEmpty()) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "E-mail inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+            return;
+        }
+
+        //Validar Celular
+        try {
+            if ((txtCelular.getText().length() > 9) || (txtCelular.getText().length() < 9)) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Celular inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+        }
+
+        //Validar número da casa        
         try {
             if (txtNumero.getText().isEmpty()) {
                 invalido = true;
@@ -317,7 +364,18 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Número inválido!");
         }
 
-        System.out.println(invalido);
+        //Validar valor do número da casa     
+        try {
+            if (Integer.parseInt(txtNumero.getText()) <= 0) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Número inválido!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Número inválido!");
+        }
+
         try {
             if (invalido == false) {
                 fb.setNomeFuncionario(txtNome.getText());
@@ -333,7 +391,6 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
                 fb.setNumeroContatoFuncionario(Long.parseLong(txtCelular.getText()));
                 fb.setIdadeFuncionario(Integer.parseInt(txtIdade.getText()));
                 fd.cadastraFuncionario(fb);
-                System.out.println("cadastrado?");
                 this.dispose();
                 MainView mv = new MainView();
                 mv.setVisible(true);
@@ -341,9 +398,6 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar dados!");
         }
-
-        //Fazer o bean receber os valores da combo box
-        //Se for tudo válido salvar no banco
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

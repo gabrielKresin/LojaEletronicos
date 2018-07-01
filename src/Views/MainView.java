@@ -1,19 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
-/**
- *
- * @author 104869
- */
 public class MainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainView
-     */
     public MainView() {
         initComponents();
     }
@@ -44,7 +32,7 @@ public class MainView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnVisualizarVendas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -153,10 +141,10 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Visualizar Vendas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVisualizarVendas.setText("Visualizar Vendas");
+        btnVisualizarVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVisualizarVendasActionPerformed(evt);
             }
         });
 
@@ -189,7 +177,7 @@ public class MainView extends javax.swing.JFrame {
                                         .addComponent(btnVisualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnExcluirCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(14, 14, 14)
-                        .addComponent(jButton1))
+                        .addComponent(btnVisualizarVendas))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnVisualizarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
@@ -233,7 +221,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRealizarVenda)
-                    .addComponent(jButton1))
+                    .addComponent(btnVisualizarVendas))
                 .addGap(18, 18, 18)
                 .addComponent(btnSair)
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -325,11 +313,11 @@ public class MainView extends javax.swing.JFrame {
         rvv.setVisible(true);
     }//GEN-LAST:event_btnRealizarVendaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVisualizarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarVendasActionPerformed
         this.dispose();
         VisualizarVendasView vvv = new VisualizarVendasView();
         vvv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVisualizarVendasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,7 +369,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton btnVisualizarCliente;
     private javax.swing.JButton btnVisualizarFuncionario;
     private javax.swing.JButton btnVisualizarProduto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVisualizarVendas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

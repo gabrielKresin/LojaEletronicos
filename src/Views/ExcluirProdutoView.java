@@ -8,6 +8,7 @@ public class ExcluirProdutoView extends javax.swing.JFrame {
         initComponents();
         ProdutoDao pd = new ProdutoDao();
         
+        //Carregar produtos na combo
         for (int i = 0; i < pd.carregaProdutos().size(); i++) {
             comboProduto.addItem(String.valueOf(pd.carregaProdutos().get(i)));
         }

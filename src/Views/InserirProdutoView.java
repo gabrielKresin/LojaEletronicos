@@ -116,7 +116,9 @@ public class InserirProdutoView extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        ProdutoDao pd = new ProdutoDao();
 
+        //Validar nome do produto
         try {
             if (txtNome.getText().isEmpty()) {
                 invalido = true;
@@ -128,6 +130,19 @@ public class InserirProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
 
+        //Verificar se o produto já está cadastrado
+        try {
+            if (pd.verificaProduto(txtNome.getText()) == true) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome inválido!");
+        }
+
+        //Validar valor do produto
         try {
             if (Double.parseDouble(txtValor.getText()) <= 0) {
                 invalido = true;
@@ -139,6 +154,7 @@ public class InserirProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Valor inválido!");
         }
 
+        //Validar quantidade do produto
         try {
             if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
                 invalido = true;
@@ -150,16 +166,15 @@ public class InserirProdutoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Quantidade inválida!");
         }
 
-        if(invalido == false){
+        if (invalido == false) {
             ProdutoBean pb = new ProdutoBean();
-            ProdutoDao pd = new ProdutoDao();
             pb.setNomeProduto(txtNome.getText());
             pb.setMarcaProduto(String.valueOf(comboMarca.getSelectedItem()));
             pb.setValorProduto(Double.parseDouble(txtValor.getText()));
             pb.setEstoqueProduto(Integer.parseInt(txtQuantidade.getText()));
             pd.cadastraProduto(pb);
         }
-        
+
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);

@@ -8,6 +8,7 @@ public class ExcluirFuncionarioView extends javax.swing.JFrame {
         initComponents();
         FuncionarioDao fd = new FuncionarioDao();
         
+        //Carregar funcionários na combo
         for (int i = 0; i < fd.carregaFuncionario().size(); i++) {
             comboFuncionario.addItem(String.valueOf(fd.carregaFuncionario().get(i)));
         }
@@ -62,7 +63,7 @@ public class ExcluirFuncionarioView extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(26, 26, 26)
                         .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -1,7 +1,9 @@
 package Beans;
 
+//Classe Bean com os atributos do cliente
 public class ClienteBean {
-    
+
+    //Atributos
     private int idCliente;
     private String nomeCliente;
     private String ruaCliente;
@@ -16,6 +18,7 @@ public class ClienteBean {
     private long telefoneCliente;
     static private int idClienteAlterado;
 
+    //Getters e Setters
     public static int getIdClienteAlterado() {
         return idClienteAlterado;
     }
@@ -119,5 +122,5 @@ public class ClienteBean {
     public void setTelefoneCliente(long telefoneCliente) {
         this.telefoneCliente = telefoneCliente;
     }
-    
+
 }

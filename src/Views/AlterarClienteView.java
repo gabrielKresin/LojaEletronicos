@@ -8,6 +8,7 @@ public class AlterarClienteView extends javax.swing.JFrame {
     public AlterarClienteView() {
         initComponents();
         ClienteDao cd = new ClienteDao();
+        //Carregar clientes na tabela
         tabelaClientes.setModel(cd.listarParaAlterar());
     }
 
@@ -108,7 +109,9 @@ public class AlterarClienteView extends javax.swing.JFrame {
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
         ClienteBean cb = new ClienteBean();
         
+        //Pegar linha selecionada
         int linhaSelecionada = tabelaClientes.getSelectedRow();
+        //Pegar valor da linha selecionada
         int id = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
         cb.setIdClienteAlterado(id);
         

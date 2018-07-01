@@ -1,5 +1,6 @@
 package Daos;
 
+//Importações
 import java.sql.Connection;
 import Connection.ConnectionFactory;
 import Beans.VendaBean;
@@ -19,10 +20,11 @@ public class VendaDao {
 
     }
 
+    //Método para cadastrar uma venda no banco
     public void cadastraVenda(VendaBean vb) {
 
         int idProduto = 0;
-        
+
         //Verificar qual o produto selecionado
         String sql = "SELECT idProduto FROM produtos WHERE nomeProduto = ? ";
 
@@ -41,27 +43,29 @@ public class VendaDao {
             JOptionPane.showMessageDialog(null, "Erro ao buscar produto!" + e.getMessage());
 
         }
-        
+
+        //Cadastrar venda no banco
         try {
             sql = "INSERT INTO vendas VALUES (null, ?, ?, ?)";
-            
+
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, idProduto);
             pstmt.setDouble(2, vb.getTotal());
             pstmt.setInt(3, vb.getQuantidadeVenda());
-            
+
             pstmt.execute();
             pstmt.close();
-            
+
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar venda! ");
-            System.out.println( e.getMessage());
-            
+            System.out.println(e.getMessage());
+
         }
-        
+
     }
 
+    //Método para verificar quantidade de produtos no estoque
     public boolean verificaEstoque(int quantidade, String produto) {
 
         boolean produtosSuficiente = true;
@@ -98,6 +102,8 @@ public class VendaDao {
 
             while (rs.next()) {
 
+                //Se a quantidade de produtos a ser comprada for maior que a 
+                //quantidade no banco, o método irá retornar false, caso contrário irá retornar true
                 if (rs.getInt("quantidadeEstoque") < quantidade) {
 
                     produtosSuficiente = false;
@@ -117,13 +123,14 @@ public class VendaDao {
         return produtosSuficiente;
 
     }
-    
+
     //Descontar produtos do estoque
     public void atualizaEstoque(int quantidade, String produto) {
 
         int idProduto = 0;
         int novoEstoque = 0;
-        
+
+        //Verificar qual o produto selecionado
         String sql = "SELECT idProduto FROM produtos WHERE nomeProduto = ? ";
 
         try {
@@ -142,27 +149,29 @@ public class VendaDao {
 
         }
 
+        //Pegar o estoque desse protudo
         try {
             sql = "SELECT quantidadeEstoque FROM estoque WHERE idEstoque = ?";
-            
+
             PreparedStatement pstmt2 = this.conexao.prepareStatement(sql);
             pstmt2.setInt(1, idProduto);
             ResultSet rs = pstmt2.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 novoEstoque = (rs.getInt("quantidadeEstoque") - quantidade);
             }
-            
+
             pstmt2.execute();
             pstmt2.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar estoque!" + e.getMessage());
         }
-        
+
         try {
- 
+
+            //Descontar a quantidade comprada do estoque
             sql = "UPDATE estoque SET quantidadeEstoque = ? WHERE idEstoque = ?";
-        
+
             PreparedStatement pstmt3 = this.conexao.prepareStatement(sql);
             pstmt3.setInt(1, novoEstoque);
             pstmt3.setInt(2, idProduto);
@@ -178,11 +187,13 @@ public class VendaDao {
         }
     }
 
+    //Método para carregar o preço de um produto do banco
     public double carregaPreco(String produto) {
 
         double valorProduto = 0;
         int idProduto = 0;
 
+        //Verificar qual o produto selecionado
         String sql = "SELECT idProduto FROM produtos WHERE nomeProduto = ? ";
 
         try {
@@ -201,6 +212,7 @@ public class VendaDao {
 
         }
 
+        //Pegar o valor do produto
         sql = "SELECT valor FROM produtos WHERE idProduto = ? ";
 
         try {
@@ -221,6 +233,7 @@ public class VendaDao {
 
     }
 
+    //Método para retornar uma TableModel de vendas
     public DefaultTableModel listarVendas() {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -253,6 +266,7 @@ public class VendaDao {
 
     }
 
+    //Método para retornar uma TableModel de produtos e estoque
     public DefaultTableModel listarParaComprar() {
 
         DefaultTableModel modelo = new DefaultTableModel();

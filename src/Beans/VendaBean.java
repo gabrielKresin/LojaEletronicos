@@ -1,12 +1,15 @@
 package Beans;
 
+//Classe Bean coms os atributos da venda
 public class VendaBean {
-    
+
+    //Atributos
     private int idVenda;
     static private int quantidadeVenda;
     static private double total;
     static private String produto;
 
+    //Getters e Setters
     public String getProduto() {
         return produto;
     }
@@ -38,5 +41,5 @@ public class VendaBean {
     public void setQuantidadeVenda(int quantidadeVenda) {
         this.quantidadeVenda = quantidadeVenda;
     }
-    
+
 }

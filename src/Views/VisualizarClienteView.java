@@ -7,6 +7,7 @@ public class VisualizarClienteView extends javax.swing.JFrame {
     public VisualizarClienteView() {
         initComponents();
         ClienteDao cd = new ClienteDao();
+        //Carregar na tabela os clientes cadastrados
         tabelaClientes.setModel(cd.listarClientes());
     }
 
@@ -21,7 +22,7 @@ public class VisualizarClienteView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Visualizar Clientes");
@@ -48,10 +49,10 @@ public class VisualizarClienteView extends javax.swing.JFrame {
             tabelaClientes.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -65,7 +66,7 @@ public class VisualizarClienteView extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnVoltar)
                 .addGap(364, 364, 364))
         );
         layout.setVerticalGroup(
@@ -74,7 +75,7 @@ public class VisualizarClienteView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnVoltar)
                 .addContainerGap())
         );
 
@@ -82,11 +83,11 @@ public class VisualizarClienteView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,7 +125,7 @@ public class VisualizarClienteView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaClientes;
     // End of variables declaration//GEN-END:variables

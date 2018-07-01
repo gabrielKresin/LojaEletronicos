@@ -29,7 +29,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboMarca = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar Produto");
@@ -59,10 +59,10 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
 
         jLabel3.setText("Valor:");
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(btnConfirmar)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1)
+                        .addComponent(btnVoltar)
                         .addGap(28, 28, 28)
                         .addComponent(btnCancelar)))
                 .addContainerGap(88, Short.MAX_VALUE))
@@ -117,7 +117,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(btnVoltar))
                 .addGap(53, 53, 53))
         );
 
@@ -127,7 +127,9 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
+        ProdutoDao pd = new ProdutoDao();
 
+        //Validar nome do produto
         try {
             if (txtNome.getText().isEmpty()) {
                 invalido = true;
@@ -139,6 +141,19 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nome inválido!");
         }
 
+        //Verificar se o produto já está cadastrado
+        try {
+            if (pd.verificaProduto(txtNome.getText()) == true) {
+                invalido = true;
+                JOptionPane.showMessageDialog(null, "Nome já cadastrado!");
+                return;
+            }
+        } catch (Exception e) {
+            invalido = true;
+            JOptionPane.showMessageDialog(null, "Nome inválido!");
+        }
+
+        //Validar valor do produto
         try {
             if (Double.parseDouble(txtValor.getText()) <= 0) {
                 invalido = true;
@@ -150,6 +165,7 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Valor inválido!");
         }
 
+        //Validar quantidade do produto
         try {
             if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
                 invalido = true;
@@ -165,7 +181,6 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
         //Salvar no banco
         if(invalido == false){
             ProdutoBean pb = new ProdutoBean();
-            ProdutoDao pd = new ProdutoDao();
             pb.setNomeProduto(txtNome.getText());
             pb.setMarcaProduto(String.valueOf(comboMarca.getSelectedItem()));
             pb.setValorProduto(Double.parseDouble(txtValor.getText()));
@@ -184,11 +199,11 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
         mv.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
         AlterarProdutoView apv = new AlterarProdutoView();
         apv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,8 +243,8 @@ public class AlterarProdutoDados extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> comboMarca;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -4,26 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//Classe que irá realizar as conexões entre o banco e o programa
 public class ConnectionFactory {
 
     private final String url = "jdbc:mysql://localhost:3306/lojaeletronicos";
-    //private final String url = "jdbc:mysql://localhost:3306/loja";
     private final String user = "root";
     private final String password = "";
 
+    //Método para retornar uma conexão com o banco
     public Connection obterConexao() {
 
         Connection conexao = null;
 
         try {
             conexao = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão realizada com sucesso!");
         } catch (SQLException e) {
-            System.out.println("Erro ao realizar conexão -> "+e.getMessage());
             throw new RuntimeException(e);
         }
 
-        //Retornar a conexão
         return conexao;
     }
 }

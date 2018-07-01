@@ -12,11 +12,11 @@ public class RealizarVendaView extends javax.swing.JFrame {
         VendaDao vd = new VendaDao();
         ProdutoDao pd = new ProdutoDao();
         
+        //Carregar na tabela os produtos cadastrados
         tabelaPrecos.setModel(vd.listarParaComprar());
         
-        for (int i = 0; i < pd.carregaProdutos().size(); i++) {
-            System.out.println(pd.carregaProdutos().get(i));
-            
+        //Preencher combo com os produtos cadastrados
+        for (int i = 0; i < pd.carregaProdutos().size(); i++) {   
             comboProdutos.addItem(String.valueOf(pd.carregaProdutos().get(i)));
         }
     }
@@ -103,7 +103,7 @@ public class RealizarVendaView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,6 +134,7 @@ public class RealizarVendaView extends javax.swing.JFrame {
         boolean invalido = false;
         VendaDao vd = new VendaDao();
 
+        //Validar quantidade de produtos inserida
         try {
             if (Integer.parseInt(txtQuantidade.getText()) <= 0) {
                 invalido = true;
@@ -159,8 +160,10 @@ public class RealizarVendaView extends javax.swing.JFrame {
 
         if (invalido == false) {
             VendaBean vb = new VendaBean();
+            //setar valores no bean
             vb.setQuantidadeVenda(Integer.parseInt(txtQuantidade.getText()));
             vb.setProduto(String.valueOf(comboProdutos.getSelectedItem()));
+            //Calcular total da compra
             vb.setTotal(Integer.parseInt(txtQuantidade.getText()) * vd.carregaPreco(String.valueOf(comboProdutos.getSelectedItem())));
             this.dispose();
             CaixaView cv = new CaixaView();

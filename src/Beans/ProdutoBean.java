@@ -1,7 +1,9 @@
 package Beans;
 
+//Classe Bean com os atributos do produto
 public class ProdutoBean {
-    
+
+    //Atributos
     private int idProduto;
     private String nomeProduto;
     private double valorProduto;
@@ -9,6 +11,7 @@ public class ProdutoBean {
     private int estoqueProduto;
     static private int idProdutoAlterado;
 
+    //Getters e Setters
     public static int getIdProdutoAlterado() {
         return idProdutoAlterado;
     }
@@ -56,5 +59,5 @@ public class ProdutoBean {
     public void setEstoqueProduto(int estoqueProduto) {
         this.estoqueProduto = estoqueProduto;
     }
-    
+
 }

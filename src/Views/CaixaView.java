@@ -11,7 +11,6 @@ public class CaixaView extends javax.swing.JFrame {
     public CaixaView() {
         
         initComponents();
-        System.out.println(vb.getTotal());
 
     }
 
@@ -26,9 +25,9 @@ public class CaixaView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         txtDinheiro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,24 +38,24 @@ public class CaixaView extends javax.swing.JFrame {
 
         jLabel2.setText("Dinheiro:");
 
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -76,14 +75,14 @@ public class CaixaView extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(btnConfirmar)
                             .addComponent(jLabel2))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDinheiro))
                         .addGap(31, 31, 31)
-                        .addComponent(jButton3)))
+                        .addComponent(btnCancelar)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,9 +96,9 @@ public class CaixaView extends javax.swing.JFrame {
                     .addComponent(txtDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnConfirmar)
+                    .addComponent(btnVoltar)
+                    .addComponent(btnCancelar))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -111,7 +110,7 @@ public class CaixaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDinheiroActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean invalido = false;
 
         //validar se a quantidade é menor que o total
@@ -125,12 +124,12 @@ public class CaixaView extends javax.swing.JFrame {
             invalido = true;
             JOptionPane.showMessageDialog(null, "Quantidade de dinheiro inválida!");
         }
-
-        //calcular e exibir troco
-        //descontar produtos do estoque
+ 
         if (invalido == false) {
             VendaDao vd = new VendaDao();
+            //calcular e exibir troco
             JOptionPane.showMessageDialog(null, "Troco: " + (Double.parseDouble(txtDinheiro.getText()) - vb.getTotal()));
+            //descontar produtos do estoque
             vd.atualizaEstoque(vb.getQuantidadeVenda(), vb.getProduto());
             vd.cadastraVenda(vb);
 
@@ -139,19 +138,19 @@ public class CaixaView extends javax.swing.JFrame {
             mv.setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
         MainView mv = new MainView();
         mv.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
         RealizarVendaView rvv = new RealizarVendaView();
         rvv.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,9 +188,9 @@ public class CaixaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtDinheiro;

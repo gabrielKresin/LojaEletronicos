@@ -1,7 +1,9 @@
 package Beans;
 
+//Classe Bean com os atributos do funcionário
 public class FuncionarioBean {
-    
+
+    //Atributos
     private int idFuncionario;
     private String nomeFuncionario;
     private int idadeFuncionario;
@@ -10,13 +12,14 @@ public class FuncionarioBean {
     private String emailFuncionario;
     private long numeroContatoFuncionario;
     private String cargoFuncionario;
-    private double  salarioFuncionario;
+    private double salarioFuncionario;
     private String bairroFuncionario;
     private String ruaFuncionario;
     private int numeroCasaFuncionario;
     private String complementoFuncionario;
     static private int idFuncionarioAlterado;
 
+    //Getters e Setters
     public static int getIdFuncionarioAlterado() {
         return idFuncionarioAlterado;
     }
